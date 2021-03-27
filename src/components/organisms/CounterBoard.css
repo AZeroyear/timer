@@ -1,0 +1,17 @@
+.number-board {
+  margin-top: 15px !important;
+}
+
+.fluid-button {
+  margin-top: 10px;
+}
+.input-area {
+  padding: 10px;
+  border: none;
+  font-size: 30px;
+  text-align: center;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
