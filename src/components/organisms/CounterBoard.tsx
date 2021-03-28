@@ -1,6 +1,9 @@
 import React, { FC } from "react";
 import "./CounterBoard.css";
 import { getTime } from "../../features/counter";
+import { ReactComponent as Play } from "images/play.svg";
+import { ReactComponent as Pause } from "images/pause.svg";
+import { ReactComponent as Replay } from "images/replay.svg";
 
 type Props = {
   count?: number;
@@ -49,9 +52,11 @@ const CounterBoard: FC<Props> = ({
       </div>
       <div>
         <div className="flex-center">
-          <button onClick={startSwitch}>{on ? "STOP" : "START"}</button>
-          <button color="red" onClick={resetSwitch}>
-            RESET
+          <button onClick={startSwitch} className="ripple">
+            {on ? <Pause fill="#fff" /> : <Play fill="#fff" />}
+          </button>
+          <button className="ripple" onClick={resetSwitch}>
+            <Replay fill="#fff" />
           </button>
         </div>
       </div>

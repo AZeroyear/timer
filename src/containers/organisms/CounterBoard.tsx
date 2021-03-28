@@ -37,20 +37,32 @@ const EnhancedCounterBoard: FC = () => {
     }
   };
 
+  const notify = () => {
+    Notification.requestPermission();
+    const options = {
+      requireInteraction: true,
+    };
+    const notification = new Notification("Strech", options);
+    notification.onclose = () =>
+      setCount((currentState) => {
+        return {
+          ...currentState,
+          current: timer.set,
+          start: Date.now(),
+          on: true,
+        };
+      });
+
+    return notification;
+  };
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (timer.on) {
         const current = timer.start + timer.set - Date.now();
         if (current <= 0) {
-          alert("Time for strech");
-          setCount((currentState) => {
-            return {
-              ...currentState,
-              current: timer.set,
-              start: Date.now(),
-              on: true,
-            };
-          });
+          setCount({ ...timer, on: false });
+          notify();
         } else {
           setCount((currentState) => {
             return { ...currentState, ...{ current } };
@@ -62,11 +74,13 @@ const EnhancedCounterBoard: FC = () => {
   }, [timer, setCount]);
 
   return (
-    <CounterBoard
-      count={timer.current}
-      on={timer.on}
-      {...{ resetSwitch, startSwitch, inputMin, inputSec, inputChange }}
-    />
+    <>
+      <CounterBoard
+        count={timer.current}
+        on={timer.on}
+        {...{ resetSwitch, startSwitch, inputMin, inputSec, inputChange }}
+      />
+    </>
   );
 };
 
