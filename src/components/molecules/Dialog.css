@@ -1,0 +1,37 @@
+.border {
+  padding: 15px;
+  border: solid 0.5px #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.icon {
+  margin-right: 10px;
+  fill: #00000099;
+}
+.setting {
+  margin-left: 10px;
+  border-left: solid 0.5px #ccc;
+}
+.setting svg {
+  fill: #00000099;
+  margin-left: 10px;
+  margin-right: 0px;
+  width: 16px;
+  height: 16px;
+}
+.flex-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.flex-row:hover {
+  opacity: 0.7;
+}
+.m-0 {
+  margin: 0;
+}
