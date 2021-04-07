@@ -133,7 +133,7 @@ const EnhancedCounterBoard: FC = () => {
           });
         }
       }
-    }, 1000);
+    }, 980);
 
     return () => clearInterval(intervalId);
   }, [timer, setCount, breakTimer, setBreak]); // eslint-disable-line react-hooks/exhaustive-deps

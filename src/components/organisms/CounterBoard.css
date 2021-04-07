@@ -71,6 +71,11 @@
 .large-icon-button:hover .play {
   fill: #ff1744;
 }
+
+.large-icon-button:hover .break-hover {
+  fill: #64b5f6;
+}
+
 .pause {
   fill: #ff1744;
 }
@@ -156,5 +161,10 @@ button {
 }
 .off {
   border-bottom: solid 0.5px #fff;
+  transition: all 1s;
+}
+.break-point {
+  fill: #64b5f6;
+  border-color: #64b5f6;
   transition: all 1s;
 }

@@ -50,8 +50,8 @@ const CounterBoard: FC<Props> = ({
   return (
     <section className="flex-center">
       <div
-        className={`tomato flex-row-tomato${
-          timer.on || breakTimer.on ? ' tomato-start' : ''
+        className={`tomato flex-row-tomato${timer.on ? ' tomato-start' : ''}${
+          breakTimer.on ? ' break-point' : ''
         }`}
       >
         <div className="input-segment">
@@ -77,7 +77,11 @@ const CounterBoard: FC<Props> = ({
         {timerCycle && (
           <div className="input-segment">
             <p>STRECH / RELAX</p>
-            <div className={`flex-center${breakTimer.on ? ' on' : ' off'}`}>
+            <div
+              className={`flex-center${
+                breakTimer.on ? ' on break-point' : ' off'
+              }`}
+            >
               <input
                 type="text"
                 ref={breakMin}
@@ -104,9 +108,15 @@ const CounterBoard: FC<Props> = ({
               className="large-icon-button start-stop"
             >
               {timer.on || breakTimer.on ? (
-                <Pause className="pause" />
+                <Pause
+                  className={`pause${breakTimer.on ? ' break-point' : ''}`}
+                />
               ) : (
-                <Play className="play" />
+                <Play
+                  className={`play${
+                    breakTimer.set !== breakTimer.current ? ' break-hover' : ''
+                  }`}
+                />
               )}
             </button>
             <button type="button" className="replay" onClick={resetSwitch}>
