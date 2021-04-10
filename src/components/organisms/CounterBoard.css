@@ -1,3 +1,4 @@
+/* stylelint-disable */
 .number-board {
   margin-top: 15px !important;
 }
@@ -5,44 +6,51 @@
 .fluid-button {
   margin-top: 10px;
 }
+
 .input-area {
+  width: 80px;
   padding: 10px;
-  border: none;
   font-size: 60px;
   text-align: center;
-  width: 80px;
+  border: none;
 }
+
 .input-segment {
-  background-color: #fff;
   padding: 5px;
   margin-bottom: 10px;
   font-size: 50px;
+  background-color: #fff;
   border-radius: 10px;
 }
+
 .input-segment p {
-  font-size: 12px;
   margin: 0;
+  font-size: 12px;
   text-align: center;
 }
 
 .flex-center {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
+
 .ripple {
   background-position: center;
   transition: background 0.8s;
 }
+
 .ripple:hover {
   color: #fff;
-  border-color: #fff;
   background: #f55676 radial-gradient(circle, transparent 1%, #ffcdd2 1%)
     center/15000%;
+  border-color: #fff;
 }
+
 .ripple:hover svg {
   fill: #fff;
 }
+
 .ripple:active {
   background-color: #ffebee;
   background-size: 100%;
@@ -51,23 +59,24 @@
 
 /* Button style */
 .icon-button {
-  border-radius: 50%;
-  padding: 12px;
   width: 50px;
   height: 50px;
+  padding: 12px;
   font-size: 16px;
   text-transform: uppercase;
   cursor: pointer;
+  border-radius: 50%;
   box-shadow: 0 0 4px #999;
 }
 
 .large-icon-button {
-  border-radius: 50%;
-  padding: 0px;
   width: 70px;
   height: 70px;
+  padding: 0;
   cursor: pointer;
+  border-radius: 50%;
 }
+
 .large-icon-button:hover .play {
   fill: #ff1744;
 }
@@ -79,16 +88,17 @@
 .pause {
   fill: #ff1744;
 }
+
 .pause:hover {
-  fill: #00000099;
+  fill: #0009;
 }
 
 button {
+  padding: 12px;
+  color: #0009;
+  background-color: #fff;
   border: none;
   outline: none;
-  background-color: #fff;
-  padding: 12px;
-  color: #00000099;
 }
 
 .theme-color {
@@ -96,75 +106,111 @@ button {
 }
 
 .tomato {
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
+  width: 98vw;
+  min-width: 300px;
+  max-width: 400px;
+  height: 98vw;
+  min-height: 300px;
+  max-height: 400px;
+  padding: 20px;
   border: solid 5px #ccc;
-  transition: all 1s;
+  border-radius: 50%;
   -webkit-transition: all 1s;
+  transition: all 1s;
 }
+
 .flex-row-tomato {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
+
 .tomato-start {
   background-position: bottom;
-  transition: all 1s;
   background-size: 100%;
   border: solid 5px #ff1744;
   -webkit-transition: all 2s;
+  transition: all 1s;
 }
+
 .start-button {
-  margin-top: 40px;
   position: absolute;
+  margin-top: 40px;
   offset-position: center;
 }
+
 .start-stop {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
+
 .replay {
   position: relative;
-  left: 70px;
   top: 5px;
-  border-radius: 50%;
-  padding: 10px;
+  left: 70px;
   width: 50px;
   height: 50px;
-  transition: background 0.8s;
+  padding: 10px;
   background-position: center;
+  border-radius: 50%;
+  transition: background 0.8s;
 }
+
 .replay svg {
-  fill: #00000099;
+  fill: #0009;
 }
+
 .replay:hover {
   background: #ccc
     radial-gradient(circle, transparent 1%, rgb(223, 222, 222) 1%) center/15000%;
 }
+
 .replay:hover svg {
   fill: #fff;
 }
+
 .replay:active {
   background-color: #ccc;
   background-size: 100%;
   transition: background 0s;
 }
+
 .on {
   border-bottom: solid 0.5px #ff1744;
   transition: all 1s;
 }
+
 .off {
   border-bottom: solid 0.5px #fff;
   transition: all 1s;
 }
+
 .break-point {
-  fill: #64b5f6;
   border-color: #64b5f6;
+  fill: #64b5f6;
   transition: all 1s;
+}
+
+@media screen and (max-width: 400px) {
+  .input-area {
+    font-size: 40px;
+  }
+
+  .input-segment p {
+    font-size: 10px;
+  }
+
+  .large-icon-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .start-button {
+    margin-top: 0;
+  }
 }

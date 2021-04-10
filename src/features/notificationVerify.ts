@@ -27,18 +27,21 @@ const browser = () => {
     // IE向けの記述
     return 1;
   }
+
+  if (userAgent.indexOf('edge') !== -1) {
+    return 2;
+  }
+
+  if (userAgent.indexOf('chrome') !== -1) {
+    return 3;
+  }
+
   if (
-    userAgent.indexOf('edge') !== -1 ||
     userAgent.indexOf('safari') !== -1 ||
     userAgent.indexOf('firefox') !== -1
   ) {
     // Safari向けの記述 FireFox向けの記述
     return 2;
-  }
-
-  if (userAgent.indexOf('chrome') !== -1) {
-    // 旧Edge向けの記述 Google Chrome向けの記述
-    return 3;
   }
 
   // その他のブラウザ向けの記述

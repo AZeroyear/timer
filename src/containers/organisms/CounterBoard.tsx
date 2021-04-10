@@ -1,18 +1,25 @@
 import { FC, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { counterState, breakState, notifyState } from 'features/counter';
+import {
+  counterState,
+  breakState,
+  notifyState,
+  getTime,
+} from 'features/counter';
 import { dialogState } from 'features/dialog';
 import CounterBoard from 'components/organisms/CounterBoard';
 import NotifyType from 'components/molecules/NotifyType';
 import notificationVerfy from 'features/notificationVerify';
 import DialogForm from 'components/molecules/DialogForm';
 import { notifyAlert, notifyDesktop } from 'features/notify';
+import { useCookies } from 'react-cookie';
 
 const EnhancedCounterBoard: FC = () => {
   const [timer, setCount] = useRecoilState(counterState);
   const [breakTimer, setBreak] = useRecoilState(breakState);
   const [notify, setNotify] = useRecoilState(notifyState);
   const [_dialog, setDialogState] = useRecoilState(dialogState);
+  const [cookies, setCookie] = useCookies(['notify', 'timer', 'breakTimer']);
 
   const setStateChange = (
     timeType: number,
@@ -31,6 +38,11 @@ const EnhancedCounterBoard: FC = () => {
     const [_, setState] = setStateChange(timeType);
     setState((currentState) => {
       return { ...currentState, set, current };
+    });
+    setCookie(timeType === 0 ? 'timer' : 'breakTimer', {
+      ...timer,
+      set,
+      current,
     });
   };
 
@@ -106,8 +118,21 @@ const EnhancedCounterBoard: FC = () => {
   };
 
   useEffect(() => {
-    setNotify({ ...notificationVerfy(), cycle: 0, select: 0 });
+    const notifyCookies = cookies.notify as typeof notify;
+    const timerCookies = cookies.timer as typeof timer;
+    const breakCookies = cookies.breakTimer as typeof breakTimer;
+
+    setNotify({
+      ...notifyCookies,
+      ...notificationVerfy(),
+    });
+    if (timerCookies?.set) setCount(timerCookies);
+    if (breakCookies?.set) setBreak(breakCookies);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setCookie('notify', notify);
+  }, [notify, setCookie]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -134,6 +159,19 @@ const EnhancedCounterBoard: FC = () => {
         }
       }
     }, 980);
+
+    const fav: HTMLLinkElement | null = document.getElementById(
+      'fa',
+    ) as HTMLLinkElement;
+
+    if (timer.on || breakTimer.on) {
+      document.title = getTime(timer.on ? timer.current : breakTimer.current);
+      const favIcon = timer.on ? 'favicon.ico' : 'favicon_break.ico';
+      fav.href = `${process.env.PUBLIC_URL}/${favIcon}`;
+    } else {
+      document.title = 'Pomodoro Health Timer';
+      fav.href = `${process.env.PUBLIC_URL}/favicon.ico`;
+    }
 
     return () => clearInterval(intervalId);
   }, [timer, setCount, breakTimer, setBreak]); // eslint-disable-line react-hooks/exhaustive-deps

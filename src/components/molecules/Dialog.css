@@ -1,37 +1,43 @@
 .border {
-  padding: 15px;
-  border: solid 0.5px #ccc;
-  width: 100%;
   box-sizing: border-box;
-  border-radius: 10px;
+  width: 100%;
+  padding: 15px;
   margin-bottom: 20px;
   cursor: pointer;
+  border: solid 0.5px #ccc;
+  border-radius: 10px;
 }
+
 .icon {
   margin-right: 10px;
-  fill: #00000099;
+  fill: #0009;
 }
+
 .setting {
   margin-left: 10px;
   border-left: solid 0.5px #ccc;
 }
+
 .setting svg {
-  fill: #00000099;
-  margin-left: 10px;
-  margin-right: 0px;
   width: 16px;
   height: 16px;
+  margin-right: 0;
+  margin-left: 10px;
+  fill: #0009;
 }
+
 .flex-row {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
 }
+
 .flex-row:hover {
   opacity: 0.7;
 }
+
 .m-0 {
   margin: 0;
 }

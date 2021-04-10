@@ -7,7 +7,7 @@ import './App.css';
 const App: FC = () => (
   <div className="container">
     <header>
-      <h1 style={{ textAlign: 'center' }}>Pomodoro Health Timer</h1>
+      <h1 className="title">Pomodoro Health Timer</h1>
     </header>
     <CounterBoard />
   </div>

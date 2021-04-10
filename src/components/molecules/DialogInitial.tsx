@@ -16,12 +16,14 @@ import './Dialog.css';
 import '../organisms/CounterBoard.css';
 import { ReactComponent as Notification } from 'images/notifications.svg';
 import { ReactComponent as DoNot } from 'images/do_not_disturb.svg';
+import { useCookies } from 'react-cookie';
 
 // import SelectNotify from 'components/atom/SelectNotify';
 
 const DialogInitial: FC = () => {
   const [dialog, setDialogState] = useRecoilState(dialogState);
   const [notify, setNotify] = useRecoilState(notifyState);
+  const [_, setCookie] = useCookies(['notify']);
 
   const handleClick = (select: number) => {
     if (select === 1) {
@@ -44,6 +46,7 @@ const DialogInitial: FC = () => {
       setDialogState(initialDialog);
       setNotify({ ...notify, cycle: 1, select: 4 });
     }
+    setCookie('notify', notify);
   };
 
   return dialog.initial ? (
