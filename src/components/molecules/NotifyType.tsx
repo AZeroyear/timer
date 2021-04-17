@@ -18,7 +18,7 @@ const NotifyType: FC = () => {
   const [notify, _setNotify] = useRecoilState(notifyState);
 
   return (
-    <div className="flex-center" style={{ marginTop: 30 }}>
+    <div className="flex-center" style={{ marginTop: 10 }}>
       <div className="flex-center">
         <button
           className="flex-center ripple"

@@ -3,6 +3,7 @@ import './CounterBoard.css';
 import { ReactComponent as Play } from 'images/play.svg';
 import { ReactComponent as Pause } from 'images/pause.svg';
 import { ReactComponent as Replay } from 'images/replay.svg';
+import { ReactComponent as Edit } from 'images/edit.svg';
 import { getTime, TimerProps } from '../../features/counter';
 
 type Props = {
@@ -121,6 +122,13 @@ const CounterBoard: FC<Props> = ({
             </button>
             <button type="button" className="replay" onClick={resetSwitch}>
               <Replay />
+            </button>
+            <button
+              type="button"
+              className="replay edit"
+              onClick={() => timeMin.current?.focus()}
+            >
+              <Edit />
             </button>
           </div>
         </div>

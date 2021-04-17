@@ -21,6 +21,11 @@ export const breakState = atom({
   },
 });
 
+export const totalCount = atom({
+  key: 'total',
+  default: { count: 0, time: 0 },
+});
+
 export const notifyState = atom({
   key: 'notify',
   default: {

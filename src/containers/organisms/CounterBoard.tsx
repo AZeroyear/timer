@@ -4,14 +4,17 @@ import {
   counterState,
   breakState,
   notifyState,
+  totalCount,
   getTime,
 } from 'features/counter';
 import { dialogState } from 'features/dialog';
+import { notifyAlert, notifyDesktop } from 'features/notify';
+import notificationVerfy from 'features/notificationVerify';
+
 import CounterBoard from 'components/organisms/CounterBoard';
 import NotifyType from 'components/molecules/NotifyType';
-import notificationVerfy from 'features/notificationVerify';
 import DialogForm from 'components/molecules/DialogForm';
-import { notifyAlert, notifyDesktop } from 'features/notify';
+import Tweet from 'components/molecules/Tweet';
 import { useCookies } from 'react-cookie';
 
 const EnhancedCounterBoard: FC = () => {
@@ -19,6 +22,7 @@ const EnhancedCounterBoard: FC = () => {
   const [breakTimer, setBreak] = useRecoilState(breakState);
   const [notify, setNotify] = useRecoilState(notifyState);
   const [_dialog, setDialogState] = useRecoilState(dialogState);
+  const [_total, setTotal] = useRecoilState(totalCount);
   const [cookies, setCookie] = useCookies(['notify', 'timer', 'breakTimer']);
 
   const setStateChange = (
@@ -139,6 +143,7 @@ const EnhancedCounterBoard: FC = () => {
       if (timer.on) {
         const current = timer.start + timer.set - Date.now();
         if (current <= 0) {
+          setTotal((c) => ({ count: c.count + 1, time: c.time + timer.set }));
           setCount({ ...timer, on: false });
           notifyCall(0);
         } else {
@@ -188,6 +193,7 @@ const EnhancedCounterBoard: FC = () => {
         }}
         timerCycle={notify.cycle !== 2}
       />
+      <Tweet />
       <NotifyType />
       <DialogForm />
     </>

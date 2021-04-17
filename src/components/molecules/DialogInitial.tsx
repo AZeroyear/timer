@@ -27,17 +27,19 @@ const DialogInitial: FC = () => {
 
   const handleClick = (select: number) => {
     if (select === 1) {
-      setNotify((c) => ({ ...c, select: 1 }));
+      setNotify((c) => ({ ...c, select: 1, cylcle: 1 }));
       setDialogState({ ...initialDialog, dialog: true, notifySelect: true });
     }
     if (select === 2 && notify.browser === 3) {
-      setNotify((c) => ({ ...c, select: 2 }));
+      setNotify((c) => ({ ...c, select: 2, cylcle: 1 }));
       setDialogState({ ...initialDialog, dialog: true, notifySelect: true });
     }
     if (select === 2 && notify.browser === 2) {
       setNotify((c) => ({ ...c, select: 2, cycle: 1 }));
-      if (!notify.permission) {
+      if (notify.permission === 0) {
         setDialogState({ ...initialDialog, dialog: true, desktopAllow: true });
+      } else if (notify.permission === 2) {
+        setDialogState({ ...initialDialog, dialog: true, desktopDeny: true });
       } else {
         setDialogState(initialDialog);
       }
@@ -59,8 +61,6 @@ const DialogInitial: FC = () => {
         <div className="flex-center" style={{ margin: 0 }}>
           <p style={{ margin: 0, fontSize: 14 }}>通知方法を選択してください</p>
         </div>
-      </DialogContent>
-      <DialogFooter>
         {notify.support ? (
           <button
             type="button"
@@ -69,9 +69,10 @@ const DialogInitial: FC = () => {
           >
             <div className="flex-center">
               <Dvr className="icon" />
-              <p className="m-0">Desktop Notification</p>
+              <p className="m-0">Desktop Notification (Recommend)</p>
             </div>
             <img src={Desktop} alt="desktop notification" width="250px" />
+            <p>Push notification to your desktop window.</p>
           </button>
         ) : (
           <></>
@@ -87,6 +88,7 @@ const DialogInitial: FC = () => {
             <p className="m-0">Window Alert</p>
           </div>
           <img src={Alert} alt="alert notification" width="250px" />
+          <p>Push notification on browser.</p>
         </button>
         <button
           type="button"
@@ -98,6 +100,8 @@ const DialogInitial: FC = () => {
             <p className="m-0">No Notification</p>
           </div>
         </button>
+      </DialogContent>
+      <DialogFooter>
         <DialogButton action="dismiss">Cancel</DialogButton>
       </DialogFooter>
     </>
