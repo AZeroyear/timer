@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import './CounterBoard.css';
 import { ReactComponent as Play } from 'images/play.svg';
 import { ReactComponent as Pause } from 'images/pause.svg';
@@ -29,6 +29,29 @@ const CounterBoard: FC<Props> = ({
   const timeSec = useRef<HTMLInputElement>(null);
   const breakMin = useRef<HTMLInputElement>(null);
   const breakSec = useRef<HTMLInputElement>(null);
+
+  const [editNumber, setEdit] = useState(0);
+
+  const editHandle = () => {
+    const newEditNumber = editNumber < 4 ? editNumber + 1 : 1;
+    switch (newEditNumber) {
+      case 1:
+        timeMin.current?.focus();
+        break;
+      case 2:
+        timeSec.current?.focus();
+        break;
+      case 3:
+        breakMin.current?.focus();
+        break;
+      case 4:
+        breakSec.current?.focus();
+        break;
+      default:
+        break;
+    }
+    setEdit(newEditNumber);
+  };
 
   const timeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -101,7 +124,7 @@ const CounterBoard: FC<Props> = ({
             </div>
           </div>
         )}
-        <div className="flex-center" style={{ height: 80 }}>
+        <div className="flex-center" style={{ height: 60 }}>
           <div className="start-button">
             <button
               type="button"
@@ -123,11 +146,7 @@ const CounterBoard: FC<Props> = ({
             <button type="button" className="replay" onClick={resetSwitch}>
               <Replay />
             </button>
-            <button
-              type="button"
-              className="replay edit"
-              onClick={() => timeMin.current?.focus()}
-            >
+            <button type="button" className="replay edit" onClick={editHandle}>
               <Edit />
             </button>
           </div>

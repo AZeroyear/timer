@@ -10,12 +10,14 @@ import {
 import { dialogState } from 'features/dialog';
 import { notifyAlert, notifyDesktop } from 'features/notify';
 import notificationVerfy from 'features/notificationVerify';
+import { useCookies } from 'react-cookie';
 
 import CounterBoard from 'components/organisms/CounterBoard';
-import NotifyType from 'components/molecules/NotifyType';
 import DialogForm from 'components/molecules/DialogForm';
 import Tweet from 'components/molecules/Tweet';
-import { useCookies } from 'react-cookie';
+import Coffee from 'components/molecules/Coffee';
+import Join from 'components/molecules/Join';
+import NotifyType from 'components/molecules/NotifyType';
 
 const EnhancedCounterBoard: FC = () => {
   const [timer, setCount] = useRecoilState(counterState);
@@ -59,7 +61,12 @@ const EnhancedCounterBoard: FC = () => {
 
   const startSwitch = () => {
     if (notify.select === 0 || notify.cycle === 0) {
-      setDialogState((c) => ({ ...c, dialog: true, initial: true }));
+      if (notify.browser === 2 || notify.browser === 3) {
+        setNotify((c) => ({ ...c, select: 2, cycle: 1 }));
+        setDialogState((c) => ({ ...c, dialog: true, desktopAllow: true }));
+      } else {
+        setDialogState((c) => ({ ...c, dialog: true, initial: true }));
+      }
     }
     if (timer.on) setCount((c) => ({ ...c, on: false }));
     if (breakTimer.on) setBreak((c) => ({ ...c, on: false }));
@@ -97,7 +104,7 @@ const EnhancedCounterBoard: FC = () => {
         notifyAlert(timeType);
         setTimer();
       }
-      if (notify.select === 2) notifyDesktop(timeType, setTimer);
+      if (notify.select === 2) notifyDesktop(timeType, notify.cycle, setTimer);
 
       return;
     }
@@ -122,11 +129,12 @@ const EnhancedCounterBoard: FC = () => {
   };
 
   useEffect(() => {
+    const initalNotify = { select: 0, cycle: 0 };
     const notifyCookies = cookies.notify as typeof notify;
     const timerCookies = cookies.timer as typeof timer;
     const breakCookies = cookies.breakTimer as typeof breakTimer;
-
     setNotify({
+      ...initalNotify,
       ...notifyCookies,
       ...notificationVerfy(),
     });
@@ -193,9 +201,13 @@ const EnhancedCounterBoard: FC = () => {
         }}
         timerCycle={notify.cycle !== 2}
       />
-      <Tweet />
       <NotifyType />
+      <Tweet />
       <DialogForm />
+      <div className="flex-center">
+        <Coffee />
+        <Join />
+      </div>
     </>
   );
 };

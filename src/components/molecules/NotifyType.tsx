@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { dialogState } from 'features/dialog';
 import { notifyState } from 'features/counter';
 
-import { ReactComponent as Notification } from 'images/notifications.svg';
+import { ReactComponent as Notification } from 'images/settings.svg';
 import { ReactComponent as Click } from 'images/click.svg';
 import { ReactComponent as Timer } from 'images/timer.svg';
 import { ReactComponent as DoNot } from 'images/do_not_disturb.svg';
@@ -23,8 +23,8 @@ const NotifyType: FC = () => {
         <button
           className="flex-center ripple"
           style={{
-            border: 'solid 0.5px #ccc',
-            borderRadius: '30px',
+            padding: 6,
+            borderRadius: 30,
           }}
           type="button"
           onClick={() =>
@@ -32,8 +32,10 @@ const NotifyType: FC = () => {
           }
         >
           <Notification fill="#00000099" />
-          SETTING
-          <div className="setting">
+          <div
+            className="setting flex-center"
+            style={{ marginLeft: 0, border: 'none' }}
+          >
             {notify.select === 4 && <DoNot />}
             {notify.select === 1 && <Campaign />}
             {notify.select === 2 && <Dvr />}

@@ -83,3 +83,14 @@ export const getTime = (time: number): string => {
     -2,
   )}`;
 };
+
+export const getHourTime = (time: number): string => {
+  const second = time / 1000;
+  const min = Math.floor(second / 60);
+  const sec = Math.floor(second % 60);
+  const hour = Math.floor(min / 60);
+
+  return `${`00${hour.toString()}`.slice(-2)}:${`00${min.toString()}`.slice(
+    -2,
+  )}:${`00${sec.toString()}`.slice(-2)}`;
+};

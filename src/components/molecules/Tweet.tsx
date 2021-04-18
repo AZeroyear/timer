@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useRecoilState } from 'recoil';
-import { totalCount, getTime } from 'features/counter';
+import { totalCount, getHourTime } from 'features/counter';
 import { ReactComponent as Twitter } from 'images/twitter.svg';
 import '../organisms/CounterBoard.css';
 import './Dialog.css';
@@ -12,9 +12,9 @@ const Tweet: FC = () => {
     <div className="flex-center" style={{ marginTop: 30 }}>
       <div className="flex-center">
         <a
-          href={`https://twitter.com/share?text=I've done Pomodoro timer at ${
+          href={`https://twitter.com/share?text=I've done Pomodoro timer ${
             total.count
-          } cycle (Concentrated ${getTime(total.time)})&url=${
+          } cycle (Concentrated ${getHourTime(total.time)})&url=${
             window.location.host
           }`}
           className="flex-center ripple tweet-button"
