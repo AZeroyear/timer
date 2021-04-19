@@ -63,7 +63,9 @@ const EnhancedCounterBoard: FC = () => {
     if (notify.select === 0 || notify.cycle === 0) {
       if (notify.browser === 2 || notify.browser === 3) {
         setNotify((c) => ({ ...c, select: 2, cycle: 1 }));
-        setDialogState((c) => ({ ...c, dialog: true, desktopAllow: true }));
+        if (notify.permission !== 1) {
+          setDialogState((c) => ({ ...c, dialog: true, desktopAllow: true }));
+        }
       } else {
         setDialogState((c) => ({ ...c, dialog: true, initial: true }));
       }
