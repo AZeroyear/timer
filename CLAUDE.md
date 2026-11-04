@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## コマンド
 
 - `yarn start` — 開発サーバー (http://localhost:3000)
-- `yarn build` — 本番ビルド（`build/` はコミット対象。再ビルドすると差分が大きくなる点に注意）
+- `yarn build` — 本番ビルド（出力 `build/` はコミット対象）。**Node 16 系でビルドすること**（Node 18 以上は postcss の export エラーで失敗する。例: `~/.nodenv/versions/16.4.0`）
 - `yarn test` — Jest (watch モード)。単一テスト: `yarn test -- App.test.tsx` / `yarn test -t "テスト名"`。CI 等では `CI=true yarn test`
 - `yarn lint` — stylelint + ESLint。`yarn lint:es` / `yarn lint:style` で個別実行、`yarn fix` で prettier + 自動修正
 - 型チェック: `npx tsc --noEmit`
@@ -41,6 +41,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `permission`: 0=default, 1=granted, 2=denied
 - マウント時に cookie（`notify`, `timer`, `breakTimer`）から設定を復元し、変更時に書き戻す。
 - タイマー動作中は `document.title` と favicon（`#fa` 要素、`public/favicon*.ico`）を動的に書き換える。`public/index.html` の `id="fa"` に依存。
+
+## デプロイ
+
+https://timer.eastazy.com/ に Cloudflare Pages で公開しており、`main` への push で自動デプロイされる（リポジトリ内にデプロイ設定ファイルは無い）。**コミット済みの `build/` がそのまま配信される**ため、ソースを変更したら push 前に `yarn build` で `build/` を再生成してコミットすること。`public/` やソースだけの変更は本番に反映されない。反映は push から 1 分前後。
 
 ## コードスタイル
 
