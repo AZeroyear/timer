@@ -1,15 +1,15 @@
 import { FC } from 'react';
 
-import CounterBoard from 'containers/organisms/CounterBoard';
+import TabataTimer from 'containers/TabataTimer';
 
 import './App.css';
 
 const App: FC = () => (
   <div className="container">
     <header>
-      <h1 className="title">Pomodoro Health Timer</h1>
+      <h1 className="title">Tabata Timer</h1>
     </header>
-    <CounterBoard />
+    <TabataTimer />
   </div>
 );
 

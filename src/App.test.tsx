@@ -1,14 +1,14 @@
-import React from "react";
-import { RecoilRoot } from "recoil";
-import { render } from "@testing-library/react";
-import App from "./App";
+import { RecoilRoot } from 'recoil';
+import { render, screen } from '@testing-library/react';
+import App from './App';
 
-test("renders learn react link", () => {
-  const { getByText } = render(
+test('renders the Tabata timer with default settings', () => {
+  render(
     <RecoilRoot>
       <App />
-    </RecoilRoot>
+    </RecoilRoot>,
   );
-  const textElement = getByText(/ビーズカウンター/i);
-  expect(textElement).toBeInTheDocument();
+  expect(screen.getByText('Tabata Timer')).toBeInTheDocument();
+  expect(screen.getByText('READY')).toBeInTheDocument();
+  expect(screen.getByText('Round 0/8')).toBeInTheDocument();
 });

@@ -1,0 +1,157 @@
+.tabata-board {
+  --phase-color: #9e9e9e;
+  --phase-bg: #fff;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 94vw;
+  max-width: 380px;
+  padding: 20px;
+  background: var(--phase-bg);
+  border: solid 5px var(--phase-color);
+  border-radius: 24px;
+  transition: all 0.4s;
+}
+
+.phase-prepare {
+  --phase-color: #f9a825;
+  --phase-bg: #fff8e1;
+}
+
+.phase-work {
+  --phase-color: #ff1744;
+  --phase-bg: #ffebee;
+}
+
+.phase-rest {
+  --phase-color: #2e7d32;
+  --phase-bg: #e8f5e9;
+}
+
+.phase-setRest {
+  --phase-color: #1976d2;
+  --phase-bg: #e3f2fd;
+}
+
+.phase-done {
+  --phase-color: #6a1b9a;
+  --phase-bg: #f3e5f5;
+}
+
+.tabata-phase {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--phase-color);
+  letter-spacing: 2px;
+}
+
+.tabata-time {
+  margin: 0;
+  font-size: 88px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--phase-color);
+}
+
+.tabata-info {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.tabata-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.tabata-reset {
+  position: absolute;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.tabata-reset svg {
+  fill: #0009;
+}
+
+.tabata-settings {
+  box-sizing: border-box;
+  width: 94vw;
+  max-width: 380px;
+  margin: 20px 0 0;
+}
+
+.tabata-presets {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.tabata-presets button {
+  padding: 8px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  border: solid 0.5px #ccc;
+  border-radius: 20px;
+}
+
+.tabata-presets button:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.tabata-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.tabata-field {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.tabata-field input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 18px;
+  text-align: center;
+  border: solid 0.5px #ccc;
+  border-radius: 8px;
+}
+
+.tabata-field input:disabled {
+  background: #f5f5f5;
+}
+
+.tabata-hint {
+  margin: 10px 0 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  .tabata-time {
+    font-size: 72px;
+  }
+}
+
+.tabata-section {
+  flex-direction: column;
+}
