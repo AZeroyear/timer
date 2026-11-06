@@ -7,7 +7,6 @@ import {
 } from 'features/tabata';
 
 export const APP_NAME = 'Loopy Timer';
-export const APP_EMOJI = '🔁';
 export const APP_URL = 'https://timer.eastazy.com/';
 export const HASHTAG = '#LoopyTimer';
 

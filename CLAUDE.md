@@ -63,7 +63,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### PWA
 
-`public/sw.js`（本番のみ `src/index.tsx` で登録）。ページは network-first、その他の同一オリジンファイルは stale-while-revalidate。アイコンは `public/logo.svg` が元データ（PNG は `logo*.png`）、共有画像の元は `design/og-image.svg`（`public/og-image.png`）。
+`public/sw.js`（本番のみ `src/index.tsx` で登録）。ページは network-first、その他の同一オリジンファイルは stale-while-revalidate。アイコン: ホーム画面・PWA（`logo192.png` / `logo512.png` / `logo.png`、見出しのロゴも）は AI 生成のマスコット `design/icon-candidates/b-mascot-fullbleed.png` から縮小したもの。ブラウザのタブ用（`favicon.ico` / `logo.svg`）は小さくても読めるように、ベクターの単純なループ記号のまま。共有画像の元は `design/og-image.svg`（`public/og-image.png`）。
 
 ## デプロイ
 

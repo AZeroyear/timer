@@ -8,7 +8,7 @@ import TimerEditDialog from 'components/molecules/TimerEditDialog';
 import ShareDialog from 'components/molecules/ShareDialog';
 import Coffee from 'components/molecules/Coffee';
 import Join from 'components/molecules/Join';
-import { APP_EMOJI, APP_NAME } from 'features/share';
+import { APP_NAME } from 'features/share';
 import {
   buildSegments,
   formatTime,
@@ -66,7 +66,14 @@ const TimerList: FC = () => {
     <>
       <header className="app-header">
         <h1 className="app-title">
-          <span aria-hidden>{APP_EMOJI}</span> {APP_NAME}
+          <img
+            className="app-logo"
+            src="/logo192.png"
+            alt=""
+            width={28}
+            height={28}
+          />
+          {APP_NAME}
         </h1>
         <select
           className="lang-select"
