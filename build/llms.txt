@@ -1,0 +1,33 @@
+# Loopy Timer
+
+> Free online interval timer for Tabata, HIIT, EMOM and Pomodoro. Run multiple timers at once, build your own work / rest cycles and share your results. No sign-up.
+
+Loopy Timer is a free interval timer for Tabata, HIIT, EMOM, Pomodoro and your own cycles. Run several timers at the same time, right in your browser. No sign-up, no install.
+
+## Features
+- Several timers running at once, each with its own work / rest cycle
+- Presets for Tabata, HIIT, EMOM and Pomodoro, or build your own
+- Sound cues, saved timers and offline use as an installable web app
+- Share your finished workout or focus session as text or an image
+
+## FAQ
+- Is Loopy Timer free? Yes. It is free to use, needs no account and runs in your browser.
+- Can I run more than one timer at once? Yes. Add as many timers as you like and start them independently, for example a Tabata set and a Pomodoro session side by side.
+- Are my timers saved? Timers are saved in your browser, so they come back after a reload. Your timers are never uploaded. You can also add the app to your home screen and use it offline.
+
+## Pages (one per language)
+- [English](https://timer.eastazy.com/en/): Loopy Timer – Free Interval, Tabata, HIIT & Pomodoro Timer
+- [日本語](https://timer.eastazy.com/ja/): Loopy Timer – 無料のインターバル・タバタ・HIIT・ポモドーロタイマー
+- [简体中文](https://timer.eastazy.com/zh-cn/): Loopy Timer – 免费间歇、塔巴塔、HIIT 与番茄钟计时器
+- [繁體中文](https://timer.eastazy.com/zh-tw/): Loopy Timer – 免費間歇、塔巴塔、HIIT 與番茄鐘計時器
+- [한국어](https://timer.eastazy.com/ko/): Loopy Timer – 무료 인터벌·타바타·HIIT·포모도로 타이머
+- [Español](https://timer.eastazy.com/es/): Loopy Timer – Temporizador gratis de intervalos, Tabata, HIIT y Pomodoro
+- [Français](https://timer.eastazy.com/fr/): Loopy Timer – Minuteur gratuit d’intervalles, Tabata, HIIT et Pomodoro
+- [Deutsch](https://timer.eastazy.com/de/): Loopy Timer – Kostenloser Intervall-, Tabata-, HIIT- und Pomodoro-Timer
+- [Português](https://timer.eastazy.com/pt/): Loopy Timer – Temporizador grátis de intervalos, Tabata, HIIT e Pomodoro
+- [Italiano](https://timer.eastazy.com/it/): Loopy Timer – Timer gratuito a intervalli, Tabata, HIIT e Pomodoro
+- [Русский](https://timer.eastazy.com/ru/): Loopy Timer – бесплатный интервальный таймер: табата, HIIT, помодоро
+- [Bahasa Indonesia](https://timer.eastazy.com/id/): Loopy Timer – Timer interval gratis: Tabata, HIIT, Pomodoro
+
+## Other
+- [Sitemap](https://timer.eastazy.com/sitemap.xml)
