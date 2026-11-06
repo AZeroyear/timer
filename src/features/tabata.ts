@@ -1,5 +1,3 @@
-import { atom } from 'recoil';
-
 export type Phase = 'prepare' | 'work' | 'rest' | 'setRest' | 'done';
 
 export type Settings = {
@@ -51,21 +49,6 @@ export const initialRun: RunState = {
   startedAt: 0,
   accumulated: 0,
 };
-
-export const settingsState = atom<Settings>({
-  key: 'tabataSettings',
-  default: defaultSettings,
-});
-
-export const runState = atom<RunState>({
-  key: 'tabataRun',
-  default: initialRun,
-});
-
-export const completedState = atom({
-  key: 'tabataCompleted',
-  default: { count: 0, workTime: 0 },
-});
 
 /**
  * prepare -> (work -> rest) x rounds -> setRest -> ... -> done.

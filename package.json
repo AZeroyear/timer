@@ -1,5 +1,5 @@
 {
-  "name": "counter-recoil",
+  "name": "loopy-timer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,10 +11,8 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "react": "^18.3.1",
-    "react-cookie": "^4.0.3",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
-    "recoil": "^0.7.7",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -31,8 +29,7 @@
     "lint:es:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:conflict": "eslint-config-prettier 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:style": "stylelint 'src/**/*.{css,less,sass,scss}'",
-    "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'",
-    "postinstall": "typesync"
+    "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'"
   },
   "eslintConfig": {
     "extends": [

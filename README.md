@@ -1,44 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Loopy Timer
 
-## Available Scripts
+A free interval timer for Tabata, HIIT, EMOM, Pomodoro and your own work / rest cycles. Run several timers at once, right in the browser — no sign-up, no install. Available in 12 languages.
 
-In the project directory, you can run:
+Live: https://timer.eastazy.com/
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Several timers running at the same time, each with its own cycle (prepare → work / rest × rounds → set rest × sets)
+- Presets (Pomodoro, Tabata, Beginner, HIIT, EMOM) or build your own; emoji icons
+- Sound cues, mute, saved timers (localStorage), installable offline PWA
+- Share a finished session as text or an image (X, Web Share API)
+- Per-language URLs (`/en/`, `/ja/`, …) with pre-rendered HTML, sitemap and `llms.txt`
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Development
 
-### `yarn test`
+Requires Node 18+ and yarn.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+yarn install
+yarn start        # http://localhost:3000
+yarn test         # CI=true yarn test for a single run
+yarn lint         # stylelint + ESLint
+npx tsc --noEmit  # type check
+yarn build        # build/ (committed) + per-language pages via scripts/prerender.js
+```
 
-### `yarn build`
+`build/` is committed and served as-is by Cloudflare Pages, so rebuild it before pushing to `main`. See [CLAUDE.md](CLAUDE.md) for the architecture, i18n and SEO details.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 日本語
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+タバタ、HIIT、EMOM、ポモドーロなどに使える無料のインターバルタイマーです。複数のタイマーを同時に動かせ、登録もインストールも不要です。12 言語に対応しています。開発手順は上記の Development を参照してください。

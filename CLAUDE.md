@@ -23,7 +23,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `Settings`（prepare / work / rest 秒、rounds、sets、setRest 秒）。`clampSetting` と `settingLimits` で入力範囲を制限する。
   - `buildSegments(settings)` が `prepare → (work → rest)×rounds → setRest → … → done` のセグメント列を作る。**各セットの最後の rest と、最後のセットの後の setRest は省略**。
   - `computeProgress(segments, elapsedMs)` が経過時間から現在のフェーズ・ラウンド・残り時間を求める。`formatTime` は 1 時間以上で `h:mm:ss`。
-  - 実行状態 `RunState` は `{ running, startedAt, accumulated }`。経過時間は `accumulated + (now - startedAt)` で導出するため、`setInterval` のずれは蓄積しない。（Recoil の atom も残っているが現在は未使用。）
+  - 実行状態 `RunState` は `{ running, startedAt, accumulated }`。経過時間は `accumulated + (now - startedAt)` で導出するため、`setInterval` のずれは蓄積しない。
 - `src/features/timers.ts` — `TimerItem`（id / emoji / name / presetName / settings / run）、localStorage の読み書きと検証（キー `loopy-timer:v1`、`loopy-timer:muted`）。壊れた保存データは補正して読む。
 - `src/features/presets.ts` — 組み込みプリセット（設定値のみ。表示名は i18n の `preset.<id>`）。`EMOJIS` はアイコン候補。
 - `src/features/sound.ts` — Web Audio API でビープ音を生成。`initAudio()` はユーザー操作内で呼ぶ必要がある。
@@ -31,7 +31,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `src/containers/useTimers.ts` — 全タイマーの状態・操作・保存・**共有 ticker（100ms を 1 本）**・音（同一 tick で 1 音に集約）・完了検知・タブタイトルを担当するフック。
 - `src/containers/TimerList.tsx` — トップ画面。ヘッダー（言語 select・ミュート）、カード一覧、追加ボタン、各ダイアログ。
 - `src/components/organisms/{TimerCard,AboutSection}.tsx`, `src/components/molecules/{PresetDialog,TimerEditDialog,ShareDialog}.tsx` — 表示と入力。スタイルは `TimerList.css`（フェーズ色は `.phase-*`）。モバイル優先（最大幅 480px、追加ボタンは画面下に固定）。
-- `src/components/molecules/{Tweet,Coffee,Join}.tsx` — フッターのリンク等。`CounterBoard.css` / `Dialog.css` は旧時代のスタイルで、現在は `Tweet` 経由でしか読み込まれない。
+- `src/components/molecules/{Coffee,Join}.tsx` — フッターのリンク（Buy me a coffee / SNS）。スタイルは `TimerList.css` の `.timer-footer` 配下。
 
 ### 多言語化（i18n）
 

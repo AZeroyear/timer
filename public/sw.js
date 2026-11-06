@@ -1,7 +1,7 @@
 /* Minimal service worker: lets the app open offline once it has been loaded.
  * Pages use network-first so a new deploy is picked up on the next visit;
  * other same-origin files are served from cache and refreshed in the background. */
-const CACHE = 'cycle-timer-v1';
+const CACHE = 'loopy-timer-v1';
 
 self.addEventListener('install', () => self.skipWaiting());
 

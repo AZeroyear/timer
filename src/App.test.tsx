@@ -1,4 +1,3 @@
-import { RecoilRoot } from 'recoil';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { defaultSettings } from 'features/tabata';
 import { MUTE_KEY, STORAGE_KEY } from 'features/timers';
@@ -13,12 +12,7 @@ beforeEach(() => {
   window.history.replaceState(null, '', '/');
 });
 
-const renderApp = () =>
-  render(
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>,
-  );
+const renderApp = () => render(<App />);
 
 test('renders the timer list with one default timer', () => {
   renderApp();
