@@ -47,6 +47,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `public/index.html` の `<meta name="prerender-head">` は差し込み位置のマーカーなので削除しないこと。
 - サイト URL・Twitter アカウントは `scripts/prerender.js` と `src/features/share.ts` の定数にある（正: `https://timer.eastazy.com/`）。
 
+### 計測・検索登録
+
+- Google アナリティクス（GA4）: プロパティ「Loopy Timer」、測定 ID `G-K20ZBJ10CN`（`public/index.html` の gtag）。同意（Cookie）バナーは未導入。
+- Search Console: ドメインプロパティ `eastazy.com`（Cloudflare 経由で自動確認済み）。`https://timer.eastazy.com/sitemap.xml` を送信済み。ページや言語を足したら `scripts/prerender.js` が sitemap を作り直すので、再デプロイ後に Search Console で状態を確認する。
+
 ### PWA
 
 `public/sw.js`（本番のみ `src/index.tsx` で登録）。ページは network-first、その他の同一オリジンファイルは stale-while-revalidate。アイコンは `public/logo.svg` が元データ（PNG は `logo*.png`）、共有画像の元は `design/og-image.svg`（`public/og-image.png`）。
