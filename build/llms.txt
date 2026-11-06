@@ -10,6 +10,12 @@ Loopy Timer is a free interval timer for Tabata, HIIT, EMOM, Pomodoro and your o
 - Sound cues, saved timers and offline use as an installable web app
 - Share your finished workout or focus session as text or an image
 
+## Ready-made timers (English)
+- [Pomodoro](https://timer.eastazy.com/en/pomodoro-timer/): The Pomodoro Technique alternates 25 minutes of focused work with 5-minute breaks. This timer starts at 25 min work / 5 min rest × 4 rounds, and you can change it any time.
+- [Tabata](https://timer.eastazy.com/en/tabata-timer/): Tabata is a high-intensity interval format: 20 seconds of all-out effort and 10 seconds of rest, repeated 8 times (4 minutes). This timer adds a 10-second get-ready countdown.
+- [HIIT](https://timer.eastazy.com/en/hiit-timer/): A simple HIIT plan: 40 seconds of hard work and 20 seconds of rest, 10 rounds per set, 2 sets with a 1-minute break in between. Adjust the times to your level.
+- [EMOM 10](https://timer.eastazy.com/en/emom-timer/): EMOM means “every minute on the minute”: work for 45 seconds, rest for 15, and start the next round on the minute. This timer runs 10 rounds.
+
 ## FAQ
 - Is Loopy Timer free? Yes. It is free to use, needs no account and runs in your browser.
 - Can I run more than one timer at once? Yes. Add as many timers as you like and start them independently, for example a Tabata set and a Pomodoro session side by side.
