@@ -684,3 +684,57 @@
   line-height: 1.5;
   color: #616161;
 }
+
+/* ---- import banner / copy link ---- */
+.import-banner {
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 2px solid #ff1744;
+  border-radius: 16px;
+}
+
+.import-banner p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.import-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.import-banner .import-actions button {
+  height: 40px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+}
+
+.import-dismiss {
+  color: #616161;
+  background: transparent;
+}
+
+.import-add {
+  color: #fff;
+  background: #ff1744;
+}
+
+.edit-link {
+  height: 40px;
+  padding: 0 14px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff1744;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #ff174455;
+  border-radius: 20px;
+}

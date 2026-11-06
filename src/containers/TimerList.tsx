@@ -2,12 +2,19 @@ import { FC, useState } from 'react';
 import { displayName, displayPreset, isIdle, TimerItem } from 'features/timers';
 import TimerCard from 'components/organisms/TimerCard';
 import Icon from 'components/atoms/Icon';
+import ImportBanner from 'components/molecules/ImportBanner';
 import PresetDialog from 'components/molecules/PresetDialog';
 import TimerEditDialog from 'components/molecules/TimerEditDialog';
 import ShareDialog from 'components/molecules/ShareDialog';
 import Coffee from 'components/molecules/Coffee';
 import Join from 'components/molecules/Join';
 import { APP_EMOJI, APP_NAME } from 'features/share';
+import {
+  buildSegments,
+  formatTime,
+  Settings,
+  totalDuration,
+} from 'features/tabata';
 import { LANGS } from 'i18n/messages';
 import AboutSection from 'components/organisms/AboutSection';
 import { Lang, useI18n } from 'i18n';
@@ -25,6 +32,9 @@ const TimerList: FC = () => {
     remove,
     add,
     edit,
+    incoming,
+    acceptIncoming,
+    dismissIncoming,
   } = useTimers();
   const { t, lang, setLang } = useI18n();
   const [adding, setAdding] = useState(false);
@@ -41,6 +51,16 @@ const TimerList: FC = () => {
     view.find((timer) => timer.id === id);
   const editing = find(editingId);
   const sharing = find(sharingId);
+
+  let offer: { emoji: string; name: string; settings: Settings } | null = null;
+  if (incoming?.kind === 'link') offer = incoming.timer;
+  if (incoming?.kind === 'preset') {
+    offer = {
+      emoji: incoming.preset.emoji,
+      name: t(`preset.${incoming.preset.id}`),
+      settings: incoming.preset.settings,
+    };
+  }
 
   return (
     <>
@@ -70,6 +90,16 @@ const TimerList: FC = () => {
           <Icon name={muted ? 'mute' : 'volume'} size={24} />
         </button>
       </header>
+
+      {offer && (
+        <ImportBanner
+          emoji={offer.emoji}
+          name={offer.name}
+          total={formatTime(totalDuration(buildSegments(offer.settings)))}
+          onAdd={acceptIncoming}
+          onDismiss={dismissIncoming}
+        />
+      )}
 
       {timers.length === 0 && <p className="timer-empty">{t('list.empty')}</p>}
       <ul className="timer-list">

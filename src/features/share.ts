@@ -46,14 +46,38 @@ export const intervalLabel = ({ work, rest }: Settings, t: Translate): string =>
 export const totalLabel = (settings: Settings): string =>
   formatTime(totalDuration(buildSegments(settings)));
 
-export const buildShareText = (item: Shareable, t: Translate): string =>
-  `${t('share.text', {
+export type SessionSummary = { sessions: number; streak: number };
+
+/** "Session #5 · 3-day streak" (empty for a first session). */
+export const summaryLabel = (
+  summary: SessionSummary | undefined,
+  t: Translate,
+): string => {
+  if (!summary || (summary.sessions < 2 && summary.streak < 2)) return '';
+
+  return [
+    t('share.sessions', { n: summary.sessions }),
+    summary.streak > 1 ? t('share.streak', { n: summary.streak }) : '',
+  ]
+    .filter(Boolean)
+    .join(' · ');
+};
+
+export const buildShareText = (
+  item: Shareable,
+  t: Translate,
+  summary?: SessionSummary,
+): string => {
+  const extra = summaryLabel(summary, t);
+
+  return `${t('share.text', {
     emoji: item.emoji,
     name: item.name,
     cycle: cycleLabel(item.settings, t),
     interval: intervalLabel(item.settings, t),
     total: totalLabel(item.settings),
-  })}\n${HASHTAG}`;
+  })}${extra ? `\n${extra}` : ''}\n${HASHTAG}`;
+};
 
 export const tweetUrl = (text: string, url: string = APP_URL): string =>
   `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -67,6 +91,7 @@ const H = 1350; // 4:5, fits an Instagram feed post
 export const renderShareImage = (
   item: Shareable,
   t: Translate,
+  summary?: SessionSummary,
 ): Promise<Blob> =>
   new Promise((resolve, reject) => {
     const canvas = document.createElement('canvas');
@@ -115,6 +140,12 @@ export const renderShareImage = (
       W / 2,
       1040,
     );
+
+    const extra = summaryLabel(summary, t);
+    if (extra) {
+      ctx.font = `bold 56px ${font}`;
+      ctx.fillText(extra, W / 2, 1130, W - 120);
+    }
 
     ctx.font = `bold 52px ${font}`;
     ctx.fillText(APP_NAME, W / 2, 1230);

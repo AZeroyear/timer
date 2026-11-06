@@ -201,3 +201,67 @@ test('a renamed timer keeps its name when the language changes', () => {
   });
   expect(screen.getByLabelText('Studyを開始')).toBeInTheDocument();
 });
+
+test('a shared link starts a new visitor with that timer', () => {
+  window.history.replaceState(
+    null,
+    '',
+    '/en/?n=Morning%20HIIT&e=%F0%9F%94%A5&c=10,40,20,10,2,60',
+  );
+  renderApp();
+  expect(screen.getByLabelText('Start Morning HIIT')).toBeInTheDocument();
+  expect(screen.queryByLabelText('Start Pomodoro')).not.toBeInTheDocument();
+  // the parameters are removed from the address bar
+  expect(window.location.search).toBe('');
+});
+
+test('a shared link asks a returning visitor before adding the timer', () => {
+  const first = renderApp();
+  first.unmount();
+  window.history.replaceState(
+    null,
+    '',
+    '/en/?n=Mine&e=%F0%9F%8D%B3&c=0,30,10,3,1,0',
+  );
+  renderApp();
+  expect(screen.getByText(/Add “Mine”/)).toBeInTheDocument();
+  expect(screen.queryByLabelText('Start Mine')).not.toBeInTheDocument();
+  fireEvent.click(screen.getByText('Add'));
+  expect(screen.getByLabelText('Start Mine')).toBeInTheDocument();
+  expect(screen.queryByText(/Add “Mine”/)).not.toBeInTheDocument();
+});
+
+test('a preset page starts a new visitor with that preset', () => {
+  window.history.replaceState(null, '', '/ja/tabata-timer/');
+  renderApp();
+  expect(screen.getByLabelText('タバタを開始')).toBeInTheDocument();
+  expect(screen.queryByLabelText('ポモドーロを開始')).not.toBeInTheDocument();
+  // switching the language keeps the preset page
+  fireEvent.change(screen.getByRole('combobox', { name: '言語' }), {
+    target: { value: 'en' },
+  });
+  expect(window.location.pathname).toBe('/en/tabata-timer/');
+  expect(document.title).toContain('Tabata Timer');
+});
+
+test('a preset page offers its preset to a returning visitor', () => {
+  const first = renderApp();
+  first.unmount();
+  window.history.replaceState(null, '', '/en/hiit-timer/');
+  renderApp();
+  expect(screen.getByText(/Add “HIIT”/)).toBeInTheDocument();
+  fireEvent.click(screen.getByText('Not now'));
+  expect(screen.queryByText(/Add “HIIT”/)).not.toBeInTheDocument();
+});
+
+test('the settings dialog can copy a link to the timer', async () => {
+  const writeText = jest.fn().mockResolvedValue(undefined);
+  Object.assign(navigator, { clipboard: { writeText } });
+  renderApp();
+  fireEvent.click(screen.getByLabelText('Settings Pomodoro'));
+  fireEvent.click(screen.getByText('Copy link to this timer'));
+  expect(writeText).toHaveBeenCalledWith(
+    expect.stringContaining('https://timer.eastazy.com/en/?n=Pomodoro'),
+  );
+  expect(await screen.findByText(/Link copied/)).toBeInTheDocument();
+});

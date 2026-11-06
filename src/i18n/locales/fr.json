@@ -85,5 +85,19 @@
   "faq.q3": "Mes minuteurs sont-ils enregistrés ?",
   "faq.a3": "Les minuteurs sont enregistrés dans votre navigateur et réapparaissent après un rechargement. Vos minuteurs ne sont jamais envoyés. Vous pouvez aussi ajouter l’appli à votre écran d’accueil et l’utiliser hors ligne.",
   "seo.title": "Loopy Timer – Minuteur gratuit d’intervalles, Tabata, HIIT et Pomodoro",
-  "seo.description": "Minuteur d’intervalles en ligne et gratuit pour le Tabata, le HIIT, l’EMOM et le Pomodoro. Lancez plusieurs minuteurs à la fois, créez vos cycles effort / repos et partagez vos résultats. Sans inscription."
+  "seo.description": "Minuteur d’intervalles en ligne et gratuit pour le Tabata, le HIIT, l’EMOM et le Pomodoro. Lancez plusieurs minuteurs à la fois, créez vos cycles effort / repos et partagez vos résultats. Sans inscription.",
+  "edit.copyLink": "Copier le lien de ce minuteur",
+  "edit.linkCopied": "Lien copié. Quiconque l’ouvre peut ajouter ce minuteur.",
+  "import.prompt": "Ajouter « {name} » ({total}) à vos minuteurs ?",
+  "import.add": "Ajouter",
+  "import.dismiss": "Pas maintenant",
+  "share.sessions": "Séance n° {n}",
+  "share.streak": "{n} jours d’affilée",
+  "about.presets": "Minuteurs",
+  "seo.presetTitle": "Minuteur {name} – Gratuit en ligne | Loopy Timer",
+  "seo.presetDescription": "Minuteur {name} en ligne et gratuit. {about} Sans inscription.",
+  "preset.about.pomodoro": "La technique Pomodoro alterne 25 minutes de travail concentré et 5 minutes de pause. Ce minuteur démarre sur 25 min de travail / 5 min de pause × 4 tours, et vous pouvez le modifier à tout moment.",
+  "preset.about.tabata": "Le Tabata est un format d’intervalles à haute intensité : 20 secondes d’effort maximal et 10 secondes de repos, répétées 8 fois (4 minutes). Ce minuteur ajoute un compte à rebours de préparation de 10 secondes.",
+  "preset.about.hiit": "Un plan HIIT simple : 40 secondes d’effort et 20 secondes de repos, 10 tours par série, 2 séries avec 1 minute de pause entre elles. Adaptez les durées à votre niveau.",
+  "preset.about.emom": "EMOM signifie « every minute on the minute » : travaillez 45 secondes, reposez-vous 15 secondes et commencez le tour suivant à la minute. Ce minuteur enchaîne 10 tours."
 }

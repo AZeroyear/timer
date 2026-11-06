@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+import { landingFromPath } from 'features/presets';
 import {
   Lang,
   langInfo,
@@ -97,8 +98,14 @@ export const detectLang = (): Lang => {
   return 'en';
 };
 
-const pathFor = (lang: Lang): string =>
-  `/${lang}/${window.location.search}${window.location.hash}`;
+// Keep a preset page (/ja/tabata-timer/) when only the language changes.
+const pathFor = (lang: Lang): string => {
+  const landing = landingFromPath(window.location.pathname);
+
+  return `/${lang}/${landing ? `${landing.slug}/` : ''}${
+    window.location.search
+  }${window.location.hash}`;
+};
 
 type Value = { lang: Lang; setLang: (lang: Lang) => void; t: Translate };
 

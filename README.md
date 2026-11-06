@@ -9,7 +9,8 @@ Live: https://timer.eastazy.com/
 - Several timers running at the same time, each with its own cycle (prepare → work / rest × rounds → set rest × sets)
 - Presets (Pomodoro, Tabata, Beginner, HIIT, EMOM) or build your own; emoji icons
 - Sound cues, mute, saved timers (localStorage), installable offline PWA
-- Share a finished session as text or an image (X, Web Share API)
+- Share a finished session as text or an image (X, Web Share API) — with session count and day streak
+- Share a timer as a link ("Copy link to this timer"); preset pages such as `/en/tabata-timer/`
 - Per-language URLs (`/en/`, `/ja/`, …) with pre-rendered HTML, sitemap and `llms.txt`
 
 ## Development

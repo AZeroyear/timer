@@ -1,0 +1,6 @@
+[
+  { "id": "pomodoro", "slug": "pomodoro-timer", "emoji": "🍅" },
+  { "id": "tabata", "slug": "tabata-timer", "emoji": "🔥" },
+  { "id": "hiit", "slug": "hiit-timer", "emoji": "⚡" },
+  { "id": "emom", "slug": "emom-timer", "emoji": "⏱️" }
+]

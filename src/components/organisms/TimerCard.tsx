@@ -63,7 +63,7 @@ const TimerCard: FC<Props> = ({
             {name}
           </p>
           <p className="timer-card-sub">
-            {presetName} ·{' '}
+            {presetName && `${presetName} · `}
             {t('card.round', {
               a: Math.min(progress.round, settings.rounds),
               b: settings.rounds,

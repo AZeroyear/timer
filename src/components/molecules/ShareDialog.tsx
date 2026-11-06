@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import Icon from 'components/atoms/Icon';
+import { loadStats, summarize } from 'features/stats';
 import { useI18n } from 'i18n';
 import {
   APP_NAME,
@@ -20,7 +21,8 @@ const fileName = (name: string): string =>
 
 const ShareDialog: FC<Props> = ({ item, onClose }) => {
   const { t, lang } = useI18n();
-  const text = buildShareText(item, t);
+  const [summary] = useState(() => summarize(loadStats()));
+  const text = buildShareText(item, t, summary);
   const [image, setImage] = useState<{ blob: Blob; url: string } | null>(null);
   const [notice, setNotice] = useState('');
   const canShare = typeof navigator.share === 'function';
@@ -28,7 +30,7 @@ const ShareDialog: FC<Props> = ({ item, onClose }) => {
   useEffect(() => {
     let url = '';
     let cancelled = false;
-    renderShareImage(item, t)
+    renderShareImage(item, t, summary)
       .then((blob) => {
         if (cancelled) return;
         url = URL.createObjectURL(blob);

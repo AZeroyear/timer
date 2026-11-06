@@ -83,5 +83,19 @@
   "faq.q3": "Apakah timer saya tersimpan?",
   "faq.a3": "Timer disimpan di browser dan tetap ada setelah halaman dimuat ulang. Timer kamu tidak pernah diunggah. Kamu juga bisa menambahkan aplikasi ke layar utama dan memakainya offline.",
   "seo.title": "Loopy Timer – Timer interval gratis: Tabata, HIIT, Pomodoro",
-  "seo.description": "Timer interval online gratis untuk Tabata, HIIT, EMOM, dan Pomodoro. Jalankan beberapa timer sekaligus, buat siklus latihan / istirahat sendiri, dan bagikan hasilnya. Tanpa pendaftaran."
+  "seo.description": "Timer interval online gratis untuk Tabata, HIIT, EMOM, dan Pomodoro. Jalankan beberapa timer sekaligus, buat siklus latihan / istirahat sendiri, dan bagikan hasilnya. Tanpa pendaftaran.",
+  "edit.copyLink": "Salin tautan timer ini",
+  "edit.linkCopied": "Tautan disalin. Siapa pun yang membukanya dapat menambahkan timer ini.",
+  "import.prompt": "Tambahkan “{name}” ({total}) ke timer kamu?",
+  "import.add": "Tambah",
+  "import.dismiss": "Nanti saja",
+  "share.sessions": "Sesi ke-{n}",
+  "share.streak": "{n} hari berturut-turut",
+  "about.presets": "Timer",
+  "seo.presetTitle": "Timer {name} – Gratis online | Loopy Timer",
+  "seo.presetDescription": "Timer {name} online gratis. {about} Tanpa pendaftaran.",
+  "preset.about.pomodoro": "Teknik Pomodoro menyelingi 25 menit kerja fokus dengan istirahat 5 menit. Timer ini dimulai dengan kerja 25 mnt / istirahat 5 mnt × 4 ronde, dan bisa kamu ubah kapan saja.",
+  "preset.about.tabata": "Tabata adalah format interval intensitas tinggi: 20 detik usaha maksimal dan 10 detik istirahat, diulang 8 kali (4 menit). Timer ini menambahkan hitung mundur persiapan 10 detik.",
+  "preset.about.hiit": "Contoh rencana HIIT sederhana: 40 detik latihan dan 20 detik istirahat, 10 ronde per set, 2 set dengan jeda 1 menit di antaranya. Sesuaikan waktunya dengan levelmu.",
+  "preset.about.emom": "EMOM berarti “every minute on the minute” (tiap menit): latihan 45 detik, istirahat 15 detik, lalu mulai ronde berikutnya tepat di menit baru. Timer ini menjalankan 10 ronde."
 }

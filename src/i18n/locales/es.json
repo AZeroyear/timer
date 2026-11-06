@@ -85,5 +85,19 @@
   "faq.q3": "¿Se guardan mis temporizadores?",
   "faq.a3": "Los temporizadores se guardan en tu navegador y siguen ahí tras recargar. Tus temporizadores nunca se suben. También puedes añadir la app a tu pantalla de inicio y usarla sin conexión.",
   "seo.title": "Loopy Timer – Temporizador gratis de intervalos, Tabata, HIIT y Pomodoro",
-  "seo.description": "Temporizador de intervalos online y gratuito para Tabata, HIIT, EMOM y Pomodoro. Ejecuta varios temporizadores a la vez, crea tus ciclos de trabajo / descanso y comparte tus resultados. Sin registro."
+  "seo.description": "Temporizador de intervalos online y gratuito para Tabata, HIIT, EMOM y Pomodoro. Ejecuta varios temporizadores a la vez, crea tus ciclos de trabajo / descanso y comparte tus resultados. Sin registro.",
+  "edit.copyLink": "Copiar enlace de este temporizador",
+  "edit.linkCopied": "Enlace copiado. Quien lo abra podrá añadir este temporizador.",
+  "import.prompt": "¿Añadir «{name}» ({total}) a tus temporizadores?",
+  "import.add": "Añadir",
+  "import.dismiss": "Ahora no",
+  "share.sessions": "Sesión n.º {n}",
+  "share.streak": "Racha de {n} días",
+  "about.presets": "Temporizadores",
+  "seo.presetTitle": "Temporizador {name} – Gratis online | Loopy Timer",
+  "seo.presetDescription": "Temporizador {name} online y gratuito. {about} Sin registro.",
+  "preset.about.pomodoro": "La técnica Pomodoro alterna 25 minutos de trabajo concentrado con descansos de 5 minutos. Este temporizador empieza con 25 min de trabajo / 5 min de descanso × 4 rondas, y puedes cambiarlo cuando quieras.",
+  "preset.about.tabata": "Tabata es un formato de intervalos de alta intensidad: 20 segundos de esfuerzo máximo y 10 de descanso, repetidos 8 veces (4 minutos). Este temporizador añade una cuenta atrás de 10 segundos para prepararte.",
+  "preset.about.hiit": "Un plan HIIT sencillo: 40 segundos de esfuerzo y 20 de descanso, 10 rondas por serie y 2 series con 1 minuto de pausa entre ellas. Ajusta los tiempos a tu nivel.",
+  "preset.about.emom": "EMOM significa «cada minuto en el minuto»: trabaja 45 segundos, descansa 15 y empieza la siguiente ronda al cambiar de minuto. Este temporizador hace 10 rondas."
 }

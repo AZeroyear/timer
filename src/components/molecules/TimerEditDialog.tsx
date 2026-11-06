@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { EMOJIS } from 'features/presets';
 import CycleBar from 'components/molecules/CycleBar';
 import { MessageKey, useI18n } from 'i18n';
+import { timerLinkUrl } from 'features/timerLink';
 import {
   buildSegments,
   clampSetting,
@@ -75,7 +76,8 @@ const TimerEditDialog: FC<Props> = ({
   onSave,
   onClose,
 }) => {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const [notice, setNotice] = useState('');
   const [draftEmoji, setDraftEmoji] = useState(emoji);
   const [draftName, setDraftName] = useState(name);
   // Counts (rounds / sets) use the `sec` slot to hold their plain number.
@@ -104,6 +106,20 @@ const TimerEditDialog: FC<Props> = ({
           ? { min: String(Math.floor(value / 60)), sec: String(value % 60) }
           : { min: '0', sec: String(value) },
     });
+  };
+
+  const copyLink = async () => {
+    const url = timerLinkUrl(lang, {
+      emoji: draftEmoji,
+      name: draftName.trim() || name,
+      settings: next,
+    });
+    try {
+      await navigator.clipboard.writeText(url);
+      setNotice(t('edit.linkCopied'));
+    } catch {
+      setNotice(url);
+    }
   };
 
   const save = () =>
@@ -215,6 +231,19 @@ const TimerEditDialog: FC<Props> = ({
           {t('edit.hint')}
           {next.sets <= 1 && ` ${t('edit.setRestOff')}`}
         </p>
+
+        <button
+          type="button"
+          className="edit-link"
+          onClick={() => void copyLink()}
+        >
+          {t('edit.copyLink')}
+        </button>
+        {notice && (
+          <p className="edit-hint" aria-live="polite">
+            {notice}
+          </p>
+        )}
 
         <p className="edit-total">
           {t('edit.total')} <strong>{formatTime(total)}</strong>

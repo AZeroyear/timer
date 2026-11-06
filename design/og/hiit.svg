@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff1744"/>
+      <stop offset="1" stop-color="#ff8a50"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="1080" cy="80" r="260" fill="#ffffff22"/>
+  <text x="110" y="330" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="260">⚡</text>
+  <text x="520" y="290" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="94" font-weight="800" fill="#fff">HIIT Timer</text>
+  <text x="522" y="370" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="36" fill="#fff">40s work / 20s rest × 10 × 2 sets</text>
+  <text x="522" y="430" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="32" fill="#ffffffcc">Free, no sign-up. Run several timers at once.</text>
+  <text x="522" y="560" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="30" fill="#ffffffcc">Loopy Timer · timer.eastazy.com</text>
+</svg>

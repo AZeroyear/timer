@@ -27,6 +27,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `src/features/timers.ts` — `TimerItem`（id / emoji / name / presetName / settings / run）、localStorage の読み書きと検証（キー `loopy-timer:v1`、`loopy-timer:muted`）。壊れた保存データは補正して読む。
 - `src/features/presets.ts` — 組み込みプリセット（設定値のみ。表示名は i18n の `preset.<id>`）。`EMOJIS` はアイコン候補。
 - `src/features/sound.ts` — Web Audio API でビープ音を生成。`initAudio()` はユーザー操作内で呼ぶ必要がある。
+- `src/features/timerLink.ts` — タイマーを URL で共有する仕組み（`/<lang>/?n=名前&e=絵文字&c=準備,ワーク,休憩,ラウンド,セット,セット間休憩`）。`decodeTimerLink` は値を検証・clamp する。初回訪問者は共有されたタイマーでそのまま始まり、既存ユーザーには確認バナー（`ImportBanner`）を出してから追加する。処理後は `clearTimerLinkFromUrl` でクエリを消す。
+- `src/features/stats.ts` — 完了した回数と「完了した日」を localStorage（`loopy-timer:stats`）に保存し、連続日数を計算する。共有文・共有画像に「通算 N 回目 · N 日連続」を出すために使う。
+- `src/features/landing.json` — プリセット別ページ（`/ja/tabata-timer/` など）の一覧（id / slug / emoji）。`presets.ts` の `landingFromPath` と `scripts/prerender.js` の両方が読む。
 - `src/features/share.ts` — アプリ名・URL・ハッシュタグ定数（`APP_NAME` など）、共有文の生成、X の投稿 URL、共有用画像（canvas, 4:5）の描画。
 - `src/containers/useTimers.ts` — 全タイマーの状態・操作・保存・**共有 ticker（100ms を 1 本）**・音（同一 tick で 1 音に集約）・完了検知・タブタイトルを担当するフック。
 - `src/containers/TimerList.tsx` — トップ画面。ヘッダー（言語 select・ミュート）、カード一覧、追加ボタン、各ダイアログ。
@@ -42,7 +45,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### SEO / AI 向け
 
-- `scripts/prerender.js`（ビルド後に実行）が `build/<code>/index.html` を言語ごとに生成する。`<title>`・description・canonical・hreflang・OGP・JSON-LD（WebApplication / FAQPage）と、`#root` 内に About / FAQ の静的テキストを埋め込む（JS を実行しないクローラー向け。React が起動すると置き換わる）。`/` は英語の x-default。
+- `scripts/prerender.js`（ビルド後に実行）が `build/<code>/index.html`（言語ごと）と `build/<code>/<slug>/index.html`（プリセット別ページ。12 言語 × 4 プリセット）を生成する。プリセット別ページは `seo.presetTitle` / `seo.presetDescription` / `preset.about.<id>` から title・description を作る。`<title>`・description・canonical・hreflang・OGP・JSON-LD（WebApplication / FAQPage）と、`#root` 内に About / FAQ の静的テキストを埋め込む（JS を実行しないクローラー向け。React が起動すると置き換わる）。`/` は英語の x-default。
 - 同じスクリプトが `sitemap.xml`（hreflang 付き）と `llms.txt` を出力する。`public/robots.txt` は AI クローラーを明示的に許可している。
 - `public/index.html` の `<meta name="prerender-head">` は差し込み位置のマーカーなので削除しないこと。
 - サイト URL・Twitter アカウントは `scripts/prerender.js` と `src/features/share.ts` の定数にある（正: `https://timer.eastazy.com/`）。
@@ -51,6 +54,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Google アナリティクス（GA4）: プロパティ「Loopy Timer」、測定 ID `G-K20ZBJ10CN`（`public/index.html` の gtag）。同意（Cookie）バナーは未導入。
 - Search Console: ドメインプロパティ `eastazy.com`（Cloudflare 経由で自動確認済み）。`https://timer.eastazy.com/sitemap.xml` を送信済み。ページや言語を足したら `scripts/prerender.js` が sitemap を作り直すので、再デプロイ後に Search Console で状態を確認する。
+
+### プリセット別ページ・共有画像・告知文
+
+- `/<lang>/<slug>/` は同じ SPA を開く。初回訪問者にはそのプリセットのタイマーが入った状態で始まり、既存ユーザーには「追加しますか？」を出す。言語を切り替えてもスラッグは維持される。
+- プリセット別の共有画像（OGP）は `node scripts/make-og.js` で `design/og/*.svg` → `public/og/<id>.png` を再生成する（macOS の Chrome が必要。`CHROME` で上書き可）。
+- 公開用の下書き（X / Zenn / Product Hunt / Show HN / Reddit、デモ動画の台本）は `docs/launch-posts.md`。
 
 ### PWA
 

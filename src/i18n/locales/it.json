@@ -85,5 +85,19 @@
   "faq.q3": "I miei timer vengono salvati?",
   "faq.a3": "I timer vengono salvati nel tuo browser e tornano dopo un ricaricamento. I tuoi timer non vengono mai caricati. Puoi anche aggiungere l’app alla schermata Home e usarla offline.",
   "seo.title": "Loopy Timer – Timer gratuito a intervalli, Tabata, HIIT e Pomodoro",
-  "seo.description": "Timer a intervalli online e gratuito per Tabata, HIIT, EMOM e Pomodoro. Avvia più timer contemporaneamente, crea i tuoi cicli lavoro / riposo e condividi i risultati. Senza registrazione."
+  "seo.description": "Timer a intervalli online e gratuito per Tabata, HIIT, EMOM e Pomodoro. Avvia più timer contemporaneamente, crea i tuoi cicli lavoro / riposo e condividi i risultati. Senza registrazione.",
+  "edit.copyLink": "Copia il link di questo timer",
+  "edit.linkCopied": "Link copiato. Chi lo apre può aggiungere questo timer.",
+  "import.prompt": "Aggiungere «{name}» ({total}) ai tuoi timer?",
+  "import.add": "Aggiungi",
+  "import.dismiss": "Non ora",
+  "share.sessions": "Sessione n. {n}",
+  "share.streak": "{n} giorni di fila",
+  "about.presets": "Timer",
+  "seo.presetTitle": "Timer {name} – Gratis online | Loopy Timer",
+  "seo.presetDescription": "Timer {name} online e gratuito. {about} Senza registrazione.",
+  "preset.about.pomodoro": "La tecnica del Pomodoro alterna 25 minuti di lavoro concentrato a pause di 5 minuti. Questo timer parte con 25 min di lavoro / 5 min di riposo × 4 round e puoi cambiarlo quando vuoi.",
+  "preset.about.tabata": "Il Tabata è un formato a intervalli ad alta intensità: 20 secondi di sforzo massimo e 10 di riposo, ripetuti 8 volte (4 minuti). Questo timer aggiunge un conto alla rovescia di 10 secondi per prepararti.",
+  "preset.about.hiit": "Un semplice piano HIIT: 40 secondi di lavoro e 20 di riposo, 10 round per serie e 2 serie con 1 minuto di pausa in mezzo. Regola i tempi in base al tuo livello.",
+  "preset.about.emom": "EMOM significa «every minute on the minute»: lavora 45 secondi, riposa 15 e inizia il round successivo allo scoccare del minuto. Questo timer esegue 10 round."
 }

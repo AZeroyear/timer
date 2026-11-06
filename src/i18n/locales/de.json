@@ -85,5 +85,19 @@
   "faq.q3": "Werden meine Timer gespeichert?",
   "faq.a3": "Die Timer werden in deinem Browser gespeichert und sind nach dem Neuladen wieder da. Deine Timer werden nie hochgeladen. Du kannst die App auch zum Startbildschirm hinzufügen und offline nutzen.",
   "seo.title": "Loopy Timer – Kostenloser Intervall-, Tabata-, HIIT- und Pomodoro-Timer",
-  "seo.description": "Kostenloser Online-Intervall-Timer für Tabata, HIIT, EMOM und Pomodoro. Mehrere Timer gleichzeitig, eigene Belastungs-/Pausen-Zyklen und Ergebnisse teilen. Ohne Anmeldung."
+  "seo.description": "Kostenloser Online-Intervall-Timer für Tabata, HIIT, EMOM und Pomodoro. Mehrere Timer gleichzeitig, eigene Belastungs-/Pausen-Zyklen und Ergebnisse teilen. Ohne Anmeldung.",
+  "edit.copyLink": "Link zu diesem Timer kopieren",
+  "edit.linkCopied": "Link kopiert. Wer ihn öffnet, kann diesen Timer hinzufügen.",
+  "import.prompt": "„{name}“ ({total}) zu deinen Timern hinzufügen?",
+  "import.add": "Hinzufügen",
+  "import.dismiss": "Nicht jetzt",
+  "share.sessions": "Einheit Nr. {n}",
+  "share.streak": "{n} Tage in Folge",
+  "about.presets": "Timer",
+  "seo.presetTitle": "{name}-Timer – Kostenlos online | Loopy Timer",
+  "seo.presetDescription": "Kostenloser {name}-Timer online. {about} Ohne Anmeldung.",
+  "preset.about.pomodoro": "Die Pomodoro-Technik wechselt 25 Minuten konzentrierte Arbeit mit 5 Minuten Pause ab. Dieser Timer startet mit 25 Min. Arbeit / 5 Min. Pause × 4 Runden und lässt sich jederzeit ändern.",
+  "preset.about.tabata": "Tabata ist ein hochintensives Intervallformat: 20 Sekunden volle Anstrengung und 10 Sekunden Pause, 8-mal wiederholt (4 Minuten). Dieser Timer enthält einen 10-Sekunden-Countdown zur Vorbereitung.",
+  "preset.about.hiit": "Ein einfacher HIIT-Plan: 40 Sekunden Belastung und 20 Sekunden Pause, 10 Runden pro Satz, 2 Sätze mit 1 Minute Pause dazwischen. Passe die Zeiten an dein Niveau an.",
+  "preset.about.emom": "EMOM steht für „every minute on the minute“: 45 Sekunden arbeiten, 15 Sekunden pausieren und die nächste Runde zur vollen Minute starten. Dieser Timer läuft über 10 Runden."
 }

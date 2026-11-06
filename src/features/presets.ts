@@ -1,4 +1,5 @@
 import { defaultSettings, Settings } from 'features/tabata';
+import landing from './landing.json';
 
 export const PRESET_IDS = [
   'pomodoro',
@@ -80,3 +81,16 @@ export const EMOJIS = [
   '🚴',
   '☕',
 ];
+
+export type LandingId = 'pomodoro' | 'tabata' | 'hiit' | 'emom';
+export type Landing = { id: LandingId; slug: string; emoji: string };
+
+/** Presets that get their own page, e.g. /ja/tabata-timer/ (see scripts/prerender.js). */
+export const LANDING = landing as Landing[];
+
+/** `/ja/tabata-timer/` -> the Tabata landing entry. */
+export const landingFromPath = (pathname: string): Landing | null => {
+  const slug = pathname.split('/')[2];
+
+  return LANDING.find((l) => l.slug === slug) ?? null;
+};

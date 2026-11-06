@@ -83,5 +83,19 @@
   "faq.q3": "我的计时器会被保存吗？",
   "faq.a3": "计时器保存在你的浏览器中，刷新后仍然存在，你的计时器内容不会被上传。你也可以把应用添加到主屏幕并离线使用。",
   "seo.title": "Loopy Timer – 免费间歇、塔巴塔、HIIT 与番茄钟计时器",
-  "seo.description": "免费的在线间歇计时器，适用于塔巴塔、HIIT、EMOM 和番茄钟。可同时运行多个计时器，自定义运动 / 休息循环并分享成绩，无需注册。"
+  "seo.description": "免费的在线间歇计时器，适用于塔巴塔、HIIT、EMOM 和番茄钟。可同时运行多个计时器，自定义运动 / 休息循环并分享成绩，无需注册。",
+  "edit.copyLink": "复制此计时器的链接",
+  "edit.linkCopied": "链接已复制。打开链接的人可以添加此计时器。",
+  "import.prompt": "要将“{name}”（{total}）添加到你的计时器吗？",
+  "import.add": "添加",
+  "import.dismiss": "以后再说",
+  "share.sessions": "第 {n} 次",
+  "share.streak": "连续 {n} 天",
+  "about.presets": "计时器",
+  "seo.presetTitle": "{name}计时器 – 免费在线 | Loopy Timer",
+  "seo.presetDescription": "免费在线{name}计时器。{about}无需注册。",
+  "preset.about.pomodoro": "番茄工作法交替进行 25 分钟的专注工作和 5 分钟的休息。本计时器默认设置为工作 25 分钟 / 休息 5 分钟 × 4 轮，可随时修改。",
+  "preset.about.tabata": "塔巴塔是一种高强度间歇训练形式：全力运动 20 秒、休息 10 秒，重复 8 次（共 4 分钟）。本计时器还包含 10 秒的准备倒计时。",
+  "preset.about.hiit": "一个简单的 HIIT 方案：高强度运动 40 秒、休息 20 秒，每组 10 轮，共 2 组，组间休息 1 分钟。可根据自己的水平调整时间。",
+  "preset.about.emom": "EMOM 意为“每分钟的开始”：运动 45 秒、休息 15 秒，并在每一分钟开始下一轮。本计时器共运行 10 轮。"
 }

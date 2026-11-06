@@ -16,7 +16,7 @@ import {
 } from 'features/sound';
 import {
   createTimer,
-  defaultTimers,
+  createTimerFromShared,
   displayName,
   elapsedOf,
   isIdle,
@@ -26,7 +26,13 @@ import {
   saveTimers,
   TimerItem,
 } from 'features/timers';
-import { Preset } from 'features/presets';
+import { findPreset, landingFromPath, Preset } from 'features/presets';
+import {
+  clearTimerLinkFromUrl,
+  decodeTimerLink,
+  SharedTimer,
+} from 'features/timerLink';
+import { recordSession } from 'features/stats';
 import { useI18n } from 'i18n';
 
 const TICK_MS = 100;
@@ -48,11 +54,50 @@ const phaseSound = (phase: Phase): Sound | null => {
   return null;
 };
 
+/** A timer offered to the visitor (shared link, or a preset landing page). */
+export type Incoming =
+  | { kind: 'link'; timer: SharedTimer }
+  | { kind: 'preset'; preset: Preset };
+
+type Initial = { timers: TimerItem[]; incoming: Incoming | null };
+
+/**
+ * First visit: start with the shared timer / the landing page's preset /
+ * Pomodoro. Returning visitors keep their timers and are *asked* before
+ * anything is added.
+ */
+const computeInitial = (): Initial => {
+  const saved = loadTimers();
+  const link = decodeTimerLink(window.location.search);
+  const landing = landingFromPath(window.location.pathname);
+  const landingPreset = landing ? findPreset(landing.id) : null;
+
+  if (!saved) {
+    return {
+      timers: [
+        link
+          ? createTimerFromShared(link)
+          : createTimer(landingPreset ?? findPreset('pomodoro')),
+      ],
+      incoming: null,
+    };
+  }
+  if (link) return { timers: saved, incoming: { kind: 'link', timer: link } };
+  if (landingPreset && !saved.some((t) => t.presetId === landingPreset.id)) {
+    return {
+      timers: saved,
+      incoming: { kind: 'preset', preset: landingPreset },
+    };
+  }
+
+  return { timers: saved, incoming: null };
+};
+
 const useTimers = () => {
   const { t: tx } = useI18n();
-  const [timers, setTimers] = useState<TimerItem[]>(
-    () => loadTimers() ?? defaultTimers(),
-  );
+  const [initial] = useState(computeInitial);
+  const [timers, setTimers] = useState<TimerItem[]>(initial.timers);
+  const [incoming, setIncoming] = useState<Incoming | null>(initial.incoming);
   const [muted, setMuted] = useState(loadMuted);
   const [now, setNow] = useState(() => Date.now());
   // Per-timer sound bookkeeping. A missing entry means "just restored": stay
@@ -61,6 +106,7 @@ const useTimers = () => {
   const latest = useRef(timers);
   latest.current = timers;
 
+  useEffect(() => clearTimerLinkFromUrl(), []);
   useEffect(() => saveTimers(timers), [timers]);
   useEffect(() => saveMuted(muted), [muted]);
 
@@ -119,6 +165,7 @@ const useTimers = () => {
 
     if (loudest >= 0 && !muted) PLAY[SOUND_PRIORITY[loudest]]();
     if (finishedIds.length > 0) {
+      finishedIds.forEach(() => recordSession());
       setTimers((list) =>
         list.map((t) =>
           finishedIds.includes(t.id)
@@ -140,7 +187,10 @@ const useTimers = () => {
   useEffect(() => {
     const running = timers.filter((t) => t.run.running);
     if (running.length === 0) {
-      document.title = tx('seo.title');
+      const landing = landingFromPath(window.location.pathname);
+      document.title = landing
+        ? tx('seo.presetTitle', { name: tx(`preset.${landing.id}`) })
+        : tx('seo.title');
 
       return;
     }
@@ -215,6 +265,18 @@ const useTimers = () => {
     [update, tx],
   );
 
+  const acceptIncoming = useCallback(() => {
+    if (!incoming) return;
+    const timer =
+      incoming.kind === 'link'
+        ? createTimerFromShared(incoming.timer)
+        : createTimer(incoming.preset);
+    setTimers((list) => [...list, timer]);
+    setIncoming(null);
+  }, [incoming]);
+
+  const dismissIncoming = useCallback(() => setIncoming(null), []);
+
   const toggleMute = useCallback(() => {
     initAudio();
     setMuted((m) => !m);
@@ -231,6 +293,9 @@ const useTimers = () => {
     remove,
     add,
     edit,
+    incoming,
+    acceptIncoming,
+    dismissIncoming,
   };
 };
 

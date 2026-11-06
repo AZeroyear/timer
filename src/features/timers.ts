@@ -9,6 +9,7 @@ import {
 } from 'features/tabata';
 import { findPreset, Preset, PresetId, PRESET_IDS } from 'features/presets';
 import { Translate, translate } from 'i18n';
+import type { SharedTimer } from 'features/timerLink';
 import { LANGS } from 'i18n/messages';
 
 export type TimerItem = {
@@ -41,6 +42,18 @@ export const createTimer = (preset: Preset): TimerItem => ({
   presetId: preset.id,
   presetName: preset.name,
   settings: preset.settings,
+  run: initialRun,
+});
+
+/** A timer opened from a shared link: always keeps the sender's name. */
+export const createTimerFromShared = (shared: SharedTimer): TimerItem => ({
+  id: newId(),
+  emoji: shared.emoji,
+  name: shared.name,
+  renamed: true,
+  presetId: null,
+  presetName: '',
+  settings: shared.settings,
   run: initialRun,
 });
 
@@ -89,7 +102,8 @@ const parseTimer = (raw: unknown): TimerItem | null => {
   const running = rawRun.running === true && startedAt > 0;
 
   const name = str(raw.name, 'Timer', 30);
-  const presetName = str(raw.presetName, 'Custom', 30);
+  const presetName =
+    typeof raw.presetName === 'string' ? raw.presetName.slice(0, 30) : 'Custom';
   let presetId = PRESET_IDS.find((id) => id === raw.presetId) ?? null;
   let renamed = raw.renamed === true;
   if (!presetId && typeof raw.renamed !== 'boolean') {
