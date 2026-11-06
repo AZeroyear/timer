@@ -33,54 +33,66 @@ const AboutSection: FC = () => {
   return (
     <section className="about" aria-label={t('about.title')}>
       {landing && (
-        <>
+        <div className="about-landing">
           <h2>{t(`preset.${landing.id}`)}</h2>
           <p>{t(`preset.about.${landing.id}`)}</p>
-        </>
-      )}
-      <h2>{t('about.title')}</h2>
-      <p>{t('about.intro')}</p>
-      <ul>
-        {FEATURES.map((key) => (
-          <li key={key}>{t(key)}</li>
-        ))}
-      </ul>
-      <h2>{t('about.faqTitle')}</h2>
-      {FAQ.map(([q, a]) => (
-        <div key={q}>
-          <h3>{t(q)}</h3>
-          <p>{t(a)}</p>
         </div>
-      ))}
-      <nav aria-label={t('about.presets')}>
-        <h2>{t('about.presets')}</h2>
-        <ul className="about-langs">
-          {LANDING.map((l) => (
-            <li key={l.id}>
-              <a href={`/${lang}/${l.slug}/`}>
-                {l.emoji} {t(`preset.${l.id}`)}
-              </a>
-            </li>
+      )}
+      <details className="about-item">
+        <summary>{t('about.title')}</summary>
+        <div className="about-body">
+          <p>{t('about.intro')}</p>
+          <ul>
+            {FEATURES.map((key) => (
+              <li key={key}>{t(key)}</li>
+            ))}
+          </ul>
+        </div>
+      </details>
+      <details className="about-item">
+        <summary>{t('about.faqTitle')}</summary>
+        <div className="about-body">
+          {FAQ.map(([q, a]) => (
+            <div key={q}>
+              <h3>{t(q)}</h3>
+              <p>{t(a)}</p>
+            </div>
           ))}
-        </ul>
-      </nav>
-      <nav aria-label={t('about.languages')}>
-        <h2>{t('about.languages')}</h2>
-        <ul className="about-langs">
-          {LANGS.map((l) => (
-            <li key={l.code}>
-              <a
-                href={`/${l.code}/${landing ? `${landing.slug}/` : ''}`}
-                lang={l.htmlLang}
-                hrefLang={l.htmlLang}
-                onClick={(e) => choose(e, l.code)}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        </div>
+      </details>
+      <details className="about-item">
+        <summary>{t('about.presets')}</summary>
+        <nav className="about-body" aria-label={t('about.presets')}>
+          <ul className="about-langs">
+            {LANDING.map((l) => (
+              <li key={l.id}>
+                <a href={`/${lang}/${l.slug}/`}>
+                  {l.emoji} {t(`preset.${l.id}`)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+      <details className="about-item">
+        <summary>{t('about.languages')}</summary>
+        <nav className="about-body" aria-label={t('about.languages')}>
+          <ul className="about-langs">
+            {LANGS.map((l) => (
+              <li key={l.code}>
+                <a
+                  href={`/${l.code}/${landing ? `${landing.slug}/` : ''}`}
+                  lang={l.htmlLang}
+                  hrefLang={l.htmlLang}
+                  onClick={(e) => choose(e, l.code)}
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
     </section>
   );
 };

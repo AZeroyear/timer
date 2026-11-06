@@ -28,6 +28,7 @@
   "preset.beginner": "Principiante",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "Timer vuoto",
   "dialog.cancel": "Annulla",
   "dialog.close": "Chiudi",
   "edit.title": "Impostazioni del timer",

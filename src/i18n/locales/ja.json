@@ -28,6 +28,7 @@
   "preset.beginner": "ビギナー",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "空のタイマー",
   "dialog.cancel": "キャンセル",
   "dialog.close": "閉じる",
   "edit.title": "タイマー設定",

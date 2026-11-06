@@ -28,6 +28,7 @@
   "preset.beginner": "Для начинающих",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "Пустой таймер",
   "dialog.cancel": "Отмена",
   "dialog.close": "Закрыть",
   "edit.title": "Настройки таймера",

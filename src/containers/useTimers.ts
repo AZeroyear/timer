@@ -250,10 +250,12 @@ const useTimers = () => {
     [],
   );
 
-  const add = useCallback(
-    (preset: Preset) => setTimers((list) => [...list, createTimer(preset)]),
-    [],
-  );
+  const add = useCallback((preset: Preset): string => {
+    const timer = createTimer(preset);
+    setTimers((list) => [...list, timer]);
+
+    return timer.id;
+  }, []);
 
   const edit = useCallback(
     (id: string, values: Pick<TimerItem, 'emoji' | 'name' | 'settings'>) =>

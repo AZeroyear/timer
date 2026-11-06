@@ -28,6 +28,7 @@
   "preset.beginner": "Iniciante",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "Temporizador em branco",
   "dialog.cancel": "Cancelar",
   "dialog.close": "Fechar",
   "edit.title": "Configurações do temporizador",

@@ -7,6 +7,7 @@ export const PRESET_IDS = [
   'beginner',
   'hiit',
   'emom',
+  'blank',
 ] as const;
 export type PresetId = (typeof PRESET_IDS)[number];
 
@@ -61,6 +62,19 @@ export const presets: Preset[] = [
     emoji: '⏱️',
     name: 'EMOM 10',
     settings: { ...defaultSettings, work: 45, rest: 15, rounds: 10 },
+  },
+  {
+    id: 'blank',
+    emoji: '✨',
+    name: 'Blank timer',
+    settings: {
+      prepare: 0,
+      work: 60,
+      rest: 0,
+      rounds: 1,
+      sets: 1,
+      setRest: 0,
+    },
   },
 ];
 

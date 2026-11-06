@@ -28,6 +28,7 @@
   "preset.beginner": "Débutant",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "Minuteur vierge",
   "dialog.cancel": "Annuler",
   "dialog.close": "Fermer",
   "edit.title": "Réglages du minuteur",

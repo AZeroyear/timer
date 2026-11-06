@@ -28,6 +28,7 @@
   "preset.beginner": "초급",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "빈 타이머",
   "dialog.cancel": "취소",
   "dialog.close": "닫기",
   "edit.title": "타이머 설정",

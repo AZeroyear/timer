@@ -28,6 +28,7 @@
   "preset.beginner": "入门",
   "preset.hiit": "HIIT",
   "preset.emom": "EMOM 10",
+  "preset.blank": "空白计时器",
   "dialog.cancel": "取消",
   "dialog.close": "关闭",
   "edit.title": "计时器设置",

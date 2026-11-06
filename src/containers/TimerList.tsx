@@ -70,8 +70,8 @@ const TimerList: FC = () => {
             className="app-logo"
             src="/logo192.png"
             alt=""
-            width={28}
-            height={28}
+            width={32}
+            height={32}
           />
           {APP_NAME}
         </h1>
@@ -158,8 +158,10 @@ const TimerList: FC = () => {
       {adding && (
         <PresetDialog
           onSelect={(preset) => {
-            add(preset);
+            const id = add(preset);
             setAdding(false);
+            // A blank timer is only useful once it has been set up.
+            if (preset.id === 'blank') setEditingId(id);
           }}
           onClose={() => setAdding(false)}
         />
