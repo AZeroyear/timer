@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 
 import { CookiesProvider } from 'react-cookie';
@@ -6,13 +6,23 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+if (!container) throw new Error('Root element not found');
+
+createRoot(container).render(
   <RecoilRoot>
     <CookiesProvider>
       <App />
     </CookiesProvider>
   </RecoilRoot>,
-  document.getElementById('root'),
 );
+
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register(`${process.env.PUBLIC_URL}/sw.js`)
+      .catch(() => undefined);
+  });
+}
 
 reportWebVitals();

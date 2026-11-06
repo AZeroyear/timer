@@ -1,10 +1,13 @@
 import { FC } from 'react';
+import { useI18n } from 'i18n';
 
 const Coffee: FC = () => {
+  const { t } = useI18n();
+
   return (
     <div className="flex-center" style={{ fontSize: 10, marginTop: 30 }}>
       <div>
-        <p className="m-0">Support me</p>
+        <p className="m-0">{t('footer.support')}</p>
         <a
           href="https://www.buymeacoffee.com/eastazy"
           target="_blank"

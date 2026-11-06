@@ -145,13 +145,21 @@ export const computeProgress = (
   };
 };
 
-/** Display as mm:ss, rounding up so that 0:00 appears only when finished. */
+/**
+ * Display as mm:ss (h:mm:ss from one hour), rounding up so that 00:00
+ * appears only when finished.
+ */
 export const formatTime = (ms: number): string => {
   const total = Math.max(0, Math.ceil(ms / 1000));
-  const min = Math.floor(total / 60);
+  const hour = Math.floor(total / 3600);
+  const min = Math.floor((total % 3600) / 60);
   const sec = total % 60;
+  const mmss = `${String(min).padStart(2, '0')}:${String(sec).padStart(
+    2,
+    '0',
+  )}`;
 
-  return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  return hour > 0 ? `${hour}:${mmss}` : mmss;
 };
 
 export const clampSetting = (key: keyof Settings, value: number): number => {

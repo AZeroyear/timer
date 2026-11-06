@@ -15,9 +15,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/react',
-    'prettier/standard',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -101,6 +98,8 @@ module.exports = {
       },
     ],
     'react/react-in-jsx-scope': 'off',
+    // arrow functions are the project convention (see prefer-arrow above)
+    'react/function-component-definition': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
   },
   overrides: [

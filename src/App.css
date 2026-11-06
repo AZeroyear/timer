@@ -1,13 +1,20 @@
-#root {
-  margin: 1em auto 0;
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 480px;
+  padding: 0 16px 112px;
+  margin: 0 auto;
 }
 
-.title {
-  text-align: center;
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0 4px;
 }
 
-@media screen and (max-width: 400px) {
-  .title {
-    font-size: 20px;
-  }
+.app-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
 }

@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-「Tabata Timer」。Create React App (react-scripts 4, React 17, TypeScript strict) 製のタバタタイマー SPA（元はポモドーロタイマーだったものを置き換えた）。状態管理は Recoil、設定の永続化は `react-cookie`。パッケージマネージャは yarn (`yarn.lock`)。
+「Loopy Timer」（旧 Tabata Timer / 元はポモドーロタイマー）。Create React App (react-scripts 5, React 18, TypeScript strict) 製の**サイクル／インターバルタイマー SPA**。トップに複数のタイマーカードを並べ、プリセット（Pomodoro / Tabata / HIIT など）から追加して**同時並行**で動かせる。タイマーは localStorage に保存される。12 言語対応で、言語ごとに URL（`/ja/` など）を持つ。パッケージマネージャは yarn (`yarn.lock`)。
 
 ## コマンド
 
 - `yarn start` — 開発サーバー (http://localhost:3000)
-- `yarn build` — 本番ビルド（出力 `build/` はコミット対象）。**Node 16 系でビルドすること**（Node 18 以上は postcss の export エラーで失敗する。例: `~/.nodenv/versions/16.4.0`）
+- `yarn build` — 本番ビルド（出力 `build/` はコミット対象）。`react-scripts build` の後に `scripts/prerender.js` が言語別 HTML・`sitemap.xml`・`llms.txt` を生成する。Node 18 でビルドできる（`resolutions` の `loader-utils` ^2.0.4 固定のため）
 - `yarn test` — Jest (watch モード)。単一テスト: `yarn test -- App.test.tsx` / `yarn test -t "テスト名"`。CI 等では `CI=true yarn test`
 - `yarn lint` — stylelint + ESLint。`yarn lint:es` / `yarn lint:style` で個別実行、`yarn fix` で prettier + 自動修正
 - 型チェック: `npx tsc --noEmit`
@@ -19,22 +19,44 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `tsconfig.json` の `baseUrl: "src"` により、import は `features/tabata` のように `src` 起点の絶対パスで書く。
 
-- `src/features/tabata.ts` — **ロジックの中核（純粋関数 + Recoil atom）**。
-  - `Settings`（prepare / work / rest 秒、rounds、sets、setRest 秒）。既定値は 10/20/10 秒 × 8 ラウンド × 1 セット。`clampSetting` と `settingLimits` で入力範囲を制限する。
+- `src/features/tabata.ts` — **ロジックの中核（純粋関数）**。
+  - `Settings`（prepare / work / rest 秒、rounds、sets、setRest 秒）。`clampSetting` と `settingLimits` で入力範囲を制限する。
   - `buildSegments(settings)` が `prepare → (work → rest)×rounds → setRest → … → done` のセグメント列を作る。**各セットの最後の rest と、最後のセットの後の setRest は省略**。
-  - `computeProgress(segments, elapsedMs)` が経過時間から現在のフェーズ・ラウンド・残り時間を求める。
-  - 実行状態 `RunState` は `{ running, startedAt, accumulated }` のみ。経過時間は `accumulated + (now - startedAt)` で導出するため、`setInterval`（100ms）のずれは蓄積しない。一時停止は `accumulated` に加算して止める。
-- `src/features/sound.ts` — Web Audio API でビープ音を生成（音源ファイル無し）。`initAudio()` は自動再生制限のため開始ボタンのクリック内で呼ぶ必要がある。
-- `src/containers/TabataTimer.tsx` — Recoil・cookie・タイマー駆動・音・タブタイトル/favicon（`public/index.html` の `id="fa"`）を担当するコンテナ。フェーズ切替音はセグメント index の変化で、カウントダウン音は work 以外の残り 3 秒で鳴らす。設定は cookie `tabata` に保存・復元する。
-- `src/components/organisms/TabataBoard.tsx` — 表示専用。フェーズごとの配色は `Tabata.css` の `.phase-*` クラス。設定入力は実行中・一時停止中は無効（Reset で変更可）。
-- `src/components/molecules/{Tweet,Coffee,Join}.tsx` — 共有ボタン等。`CounterBoard.css` / `Dialog.css` は旧ポモドーロ時代の共有スタイル（`flex-center`、`tweet-button`、`icon` など）を含むため残している。
+  - `computeProgress(segments, elapsedMs)` が経過時間から現在のフェーズ・ラウンド・残り時間を求める。`formatTime` は 1 時間以上で `h:mm:ss`。
+  - 実行状態 `RunState` は `{ running, startedAt, accumulated }`。経過時間は `accumulated + (now - startedAt)` で導出するため、`setInterval` のずれは蓄積しない。（Recoil の atom も残っているが現在は未使用。）
+- `src/features/timers.ts` — `TimerItem`（id / emoji / name / presetName / settings / run）、localStorage の読み書きと検証（キー `loopy-timer:v1`、`loopy-timer:muted`）。壊れた保存データは補正して読む。
+- `src/features/presets.ts` — 組み込みプリセット（設定値のみ。表示名は i18n の `preset.<id>`）。`EMOJIS` はアイコン候補。
+- `src/features/sound.ts` — Web Audio API でビープ音を生成。`initAudio()` はユーザー操作内で呼ぶ必要がある。
+- `src/features/share.ts` — アプリ名・URL・ハッシュタグ定数（`APP_NAME` など）、共有文の生成、X の投稿 URL、共有用画像（canvas, 4:5）の描画。
+- `src/containers/useTimers.ts` — 全タイマーの状態・操作・保存・**共有 ticker（100ms を 1 本）**・音（同一 tick で 1 音に集約）・完了検知・タブタイトルを担当するフック。
+- `src/containers/TimerList.tsx` — トップ画面。ヘッダー（言語 select・ミュート）、カード一覧、追加ボタン、各ダイアログ。
+- `src/components/organisms/{TimerCard,AboutSection}.tsx`, `src/components/molecules/{PresetDialog,TimerEditDialog,ShareDialog}.tsx` — 表示と入力。スタイルは `TimerList.css`（フェーズ色は `.phase-*`）。モバイル優先（最大幅 480px、追加ボタンは画面下に固定）。
+- `src/components/molecules/{Tweet,Coffee,Join}.tsx` — フッターのリンク等。`CounterBoard.css` / `Dialog.css` は旧時代のスタイルで、現在は `Tweet` 経由でしか読み込まれない。
+
+### 多言語化（i18n）
+
+- 文言は `src/i18n/locales/<code>.json`（12 言語）。キーは `en.json` が基準で、`useI18n().t('card.round', { a, b })` のように使う。複数形は `unit.round.one` / `.other` / `.few` / `.many` を `Intl.PluralRules` で選ぶ（`{ n }` を渡す）。足りないキーは英語にフォールバックする。
+- `src/i18n/i18n.test.ts` が「全言語に全キーがあり、プレースホルダーが一致する」ことを検証する。文言を足したら全言語に足すこと。
+- **言語は URL で決まる**（`/en/` `/ja/` `/zh-cn/` `/zh-tw/` `/ko/` `/es/` `/fr/` `/de/` `/pt/` `/it/` `/ru/` `/id/`）。`/` に来たら保存済みの選択 → ブラウザ言語 → 英語の順で決めて `replaceState` する。切替は `pushState`（再読み込みなし）。
+- 言語を追加する手順: `locales/<code>.json` を作る → `languages.json` に追加 → `messages.ts` の `Lang` と `messages` に追加。
+
+### SEO / AI 向け
+
+- `scripts/prerender.js`（ビルド後に実行）が `build/<code>/index.html` を言語ごとに生成する。`<title>`・description・canonical・hreflang・OGP・JSON-LD（WebApplication / FAQPage）と、`#root` 内に About / FAQ の静的テキストを埋め込む（JS を実行しないクローラー向け。React が起動すると置き換わる）。`/` は英語の x-default。
+- 同じスクリプトが `sitemap.xml`（hreflang 付き）と `llms.txt` を出力する。`public/robots.txt` は AI クローラーを明示的に許可している。
+- `public/index.html` の `<meta name="prerender-head">` は差し込み位置のマーカーなので削除しないこと。
+- サイト URL・Twitter アカウントは `scripts/prerender.js` と `src/features/share.ts` の定数にある（正: `https://timer.eastazy.com/`）。
+
+### PWA
+
+`public/sw.js`（本番のみ `src/index.tsx` で登録）。ページは network-first、その他の同一オリジンファイルは stale-while-revalidate。アイコンは `public/logo.svg` が元データ（PNG は `logo*.png`）、共有画像の元は `design/og-image.svg`（`public/og-image.png`）。
 
 ## デプロイ
 
-https://timer.eastazy.com/ に Cloudflare Pages で公開しており、`main` への push で自動デプロイされる（リポジトリ内にデプロイ設定ファイルは無い）。**コミット済みの `build/` がそのまま配信される**ため、ソースを変更したら push 前に `yarn build` で `build/` を再生成してコミットすること。`public/` やソースだけの変更は本番に反映されない。反映は push から 1 分前後。
+https://timer.eastazy.com/ に Cloudflare Pages で公開しており、`main` への push で自動デプロイされる（リポジトリ内にデプロイ設定ファイルは無い）。**コミット済みの `build/` がそのまま配信される**ため、ソースを変更したら push 前に `yarn build` で `build/` を再生成してコミットすること。`public/` やソースだけの変更は本番に反映されない。言語別ページ（`build/<code>/`）も `build/` に含まれる。反映は push から 1 分前後。
 
 ## コードスタイル
 
 - ESLint は airbnb + typescript-eslint（型情報あり）+ prettier。`return` の前は必ず空行（`padding-line-between-statements`）。関数は arrow function を推奨（`prefer-arrow`）。
 - Prettier: シングルクォート、セミコロンあり、末尾カンマ `all`、80 桁。
-- UI 文言は英語。
+- UI 文言は直接書かず、`src/i18n/locales/*.json` に追加して `t()` で使う（全言語分）。

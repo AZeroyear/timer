@@ -71,3 +71,9 @@ test('formatTime rounds up', () => {
   expect(formatTime(19001)).toBe('00:20');
   expect(formatTime(0)).toBe('00:00');
 });
+
+test('formatTime shows hours from one hour', () => {
+  expect(formatTime(3599000)).toBe('59:59');
+  expect(formatTime(3600000)).toBe('1:00:00');
+  expect(formatTime(6900000)).toBe('1:55:00');
+});

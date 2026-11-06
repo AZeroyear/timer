@@ -1,11 +1,14 @@
 import { FC } from 'react';
+import { useI18n } from 'i18n';
 import { ReactComponent as Twitter } from 'images/twitter.svg';
 import { ReactComponent as Discord } from 'images/Discord.svg';
 
 const Join: FC = () => {
+  const { t } = useI18n();
+
   return (
     <div style={{ fontSize: 10, marginTop: 30 }}>
-      <p className="m-0">Follow me</p>
+      <p className="m-0">{t('footer.follow')}</p>
       <div className="flex-center" style={{ height: 42 }}>
         <a
           href="https://twitter.com/FarEastAzy"

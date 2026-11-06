@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
-import TabataTimer from 'containers/TabataTimer';
+import TimerList from 'containers/TimerList';
+import { I18nProvider } from 'i18n';
 
 import './App.css';
 
 const App: FC = () => (
-  <div className="container">
-    <header>
-      <h1 className="title">Tabata Timer</h1>
-    </header>
-    <TabataTimer />
-  </div>
+  <I18nProvider>
+    <div className="container">
+      <TimerList />
+    </div>
+  </I18nProvider>
 );
 
 export default App;
