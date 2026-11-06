@@ -1,6 +1,13 @@
 import { defaultSettings, Settings } from 'features/tabata';
 
-export type PresetId = 'pomodoro' | 'tabata' | 'beginner' | 'hiit' | 'emom';
+export const PRESET_IDS = [
+  'pomodoro',
+  'tabata',
+  'beginner',
+  'hiit',
+  'emom',
+] as const;
+export type PresetId = (typeof PRESET_IDS)[number];
 
 export type Preset = {
   id: PresetId;

@@ -86,9 +86,9 @@ export const detectLang = (): Lang => {
   } catch {
     // ignore
   }
-  const tags = navigator.languages?.length
-    ? navigator.languages
-    : [navigator.language];
+  const tags = (
+    navigator.languages?.length ? navigator.languages : [navigator.language]
+  ).filter((tag): tag is string => typeof tag === 'string');
   for (let i = 0; i < tags.length; i += 1) {
     const lang = fromBrowserTag(tags[i]);
     if (lang) return lang;

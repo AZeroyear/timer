@@ -7,13 +7,17 @@ import {
   Settings,
   totalDuration,
 } from 'features/tabata';
-import { findPreset, Preset } from 'features/presets';
-import { Translate } from 'i18n';
+import { findPreset, Preset, PresetId, PRESET_IDS } from 'features/presets';
+import { Translate, translate } from 'i18n';
+import { LANGS } from 'i18n/messages';
 
 export type TimerItem = {
   id: string;
   emoji: string;
+  /** Shown as typed once `renamed`; otherwise the preset's name in the UI language. */
   name: string;
+  renamed: boolean;
+  presetId: PresetId | null;
   presetName: string;
   settings: Settings;
   run: RunState;
@@ -29,20 +33,27 @@ const newId = (): string => {
   return `${Date.now().toString(36)}-${counter}`;
 };
 
-export const createTimer = (preset: Preset, name: string): TimerItem => ({
+export const createTimer = (preset: Preset): TimerItem => ({
   id: newId(),
   emoji: preset.emoji,
-  name,
-  presetName: name,
+  name: preset.name,
+  renamed: false,
+  presetId: preset.id,
+  presetName: preset.name,
   settings: preset.settings,
   run: initialRun,
 });
 
-export const defaultTimers = (t: Translate): TimerItem[] => {
-  const preset = findPreset('pomodoro');
+export const defaultTimers = (): TimerItem[] => [
+  createTimer(findPreset('pomodoro')),
+];
 
-  return [createTimer(preset, t(`preset.${preset.id}`))];
-};
+/** Untouched timers follow the UI language; renamed ones keep their name. */
+export const displayName = (timer: TimerItem, t: Translate): string =>
+  timer.presetId && !timer.renamed ? t(`preset.${timer.presetId}`) : timer.name;
+
+export const displayPreset = (timer: TimerItem, t: Translate): string =>
+  timer.presetId ? t(`preset.${timer.presetId}`) : timer.presetName;
 
 /** Elapsed ms. Derived from timestamps, so intervals never drift. */
 export const elapsedOf = (t: TimerItem, now: number): number =>
@@ -77,11 +88,27 @@ const parseTimer = (raw: unknown): TimerItem | null => {
   const startedAt = num(rawRun.startedAt, 0);
   const running = rawRun.running === true && startedAt > 0;
 
+  const name = str(raw.name, 'Timer', 30);
+  const presetName = str(raw.presetName, 'Custom', 30);
+  let presetId = PRESET_IDS.find((id) => id === raw.presetId) ?? null;
+  let renamed = raw.renamed === true;
+  if (!presetId && typeof raw.renamed !== 'boolean') {
+    // Saved before names followed the language: recognise a preset name typed
+    // in any language, and treat a different name as a rename.
+    presetId =
+      PRESET_IDS.find((id) =>
+        LANGS.some((l) => translate(l.code, `preset.${id}`) === presetName),
+      ) ?? null;
+    renamed = name !== presetName;
+  }
+
   return {
     id: str(raw.id, newId(), 40),
     emoji: str(raw.emoji, '⏱️', 8),
-    name: str(raw.name, 'Timer', 30),
-    presetName: str(raw.presetName, 'Custom', 30),
+    name,
+    renamed,
+    presetId,
+    presetName,
     settings,
     run: {
       running,

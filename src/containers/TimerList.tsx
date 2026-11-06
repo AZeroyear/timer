@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { isIdle, TimerItem } from 'features/timers';
+import { displayName, displayPreset, isIdle, TimerItem } from 'features/timers';
 import TimerCard from 'components/organisms/TimerCard';
 import Icon from 'components/atoms/Icon';
 import PresetDialog from 'components/molecules/PresetDialog';
@@ -31,8 +31,14 @@ const TimerList: FC = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [sharingId, setSharingId] = useState<string | null>(null);
 
+  // Names of untouched timers follow the UI language.
+  const view: TimerItem[] = timers.map((item) => ({
+    ...item,
+    name: displayName(item, t),
+    presetName: displayPreset(item, t),
+  }));
   const find = (id: string | null): TimerItem | undefined =>
-    timers.find((timer) => timer.id === id);
+    view.find((timer) => timer.id === id);
   const editing = find(editingId);
   const sharing = find(sharingId);
 
@@ -67,7 +73,7 @@ const TimerList: FC = () => {
 
       {timers.length === 0 && <p className="timer-empty">{t('list.empty')}</p>}
       <ul className="timer-list">
-        {timers.map((item) => (
+        {view.map((item) => (
           <TimerCard
             key={item.id}
             timer={item}

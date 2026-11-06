@@ -4,6 +4,10 @@ import { defaultSettings } from 'features/tabata';
 import { MUTE_KEY, STORAGE_KEY } from 'features/timers';
 import App from './App';
 
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 beforeEach(() => {
   window.localStorage.clear();
   window.history.replaceState(null, '', '/');
@@ -119,7 +123,8 @@ test('switches the UI language, updates the URL and remembers it', () => {
   fireEvent.change(screen.getByLabelText('Language'), {
     target: { value: 'ja' },
   });
-  expect(screen.getByLabelText('Pomodoroを開始')).toBeInTheDocument();
+  // the untouched default timer follows the language
+  expect(screen.getByLabelText('ポモドーロを開始')).toBeInTheDocument();
   expect(screen.getByText('タイマーを追加')).toBeInTheDocument();
   expect(document.documentElement.lang).toBe('ja');
   expect(window.location.pathname).toBe('/ja/');
@@ -144,4 +149,61 @@ test('renders the About / FAQ text and a link for every language', () => {
     'href',
     '/de/',
   );
+});
+
+test('the settings dialog explains rounds vs sets and disables set rest for one set', () => {
+  renderApp();
+  fireEvent.click(screen.getByLabelText('Settings Pomodoro'));
+  expect(
+    screen.getByText(/1 round = one work and one rest/),
+  ).toBeInTheDocument();
+  expect(screen.getByLabelText('Set rest sec')).toBeDisabled();
+  expect(screen.getByText(/Used only with 2 or more sets/)).toBeInTheDocument();
+  fireEvent.change(screen.getByLabelText(/Sets/), { target: { value: '2' } });
+  expect(screen.getByLabelText('Set rest sec')).not.toBeDisabled();
+  expect(screen.getByText('Set 2/2')).toBeInTheDocument();
+});
+
+test('times are entered as minutes and seconds', () => {
+  renderApp();
+  fireEvent.click(screen.getByLabelText('Settings Pomodoro'));
+  // Pomodoro: 25 min work, 5 min rest
+  expect(screen.getByLabelText('Work min')).toHaveValue(25);
+  expect(screen.getByLabelText('Work sec')).toHaveValue(0);
+  expect(screen.getByLabelText('Rest min')).toHaveValue(5);
+  // 90 seconds is tidied up to 1 min 30 s on blur and counted in the total
+  fireEvent.change(screen.getByLabelText('Work min'), {
+    target: { value: '0' },
+  });
+  fireEvent.change(screen.getByLabelText('Work sec'), {
+    target: { value: '90' },
+  });
+  fireEvent.blur(screen.getByLabelText('Work sec'));
+  expect(screen.getByLabelText('Work min')).toHaveValue(1);
+  expect(screen.getByLabelText('Work sec')).toHaveValue(30);
+  fireEvent.click(screen.getByText('Save'));
+  fireEvent.click(screen.getByLabelText('Settings Pomodoro'));
+  expect(screen.getByLabelText('Work min')).toHaveValue(1);
+  expect(screen.getByLabelText('Work sec')).toHaveValue(30);
+});
+
+test('first visit uses the browser language for the default timer', () => {
+  jest.spyOn(window.navigator, 'language', 'get').mockReturnValue('ja-JP');
+  jest.spyOn(window.navigator, 'languages', 'get').mockReturnValue(['ja-JP']);
+  renderApp();
+  expect(window.location.pathname).toBe('/ja/');
+  expect(screen.getByLabelText('ポモドーロを開始')).toBeInTheDocument();
+});
+
+test('a renamed timer keeps its name when the language changes', () => {
+  renderApp();
+  fireEvent.click(screen.getByLabelText('Settings Pomodoro'));
+  fireEvent.change(screen.getByLabelText('Name'), {
+    target: { value: 'Study' },
+  });
+  fireEvent.click(screen.getByText('Save'));
+  fireEvent.change(screen.getByLabelText('Language'), {
+    target: { value: 'ja' },
+  });
+  expect(screen.getByLabelText('Studyを開始')).toBeInTheDocument();
 });

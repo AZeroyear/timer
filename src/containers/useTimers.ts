@@ -17,6 +17,7 @@ import {
 import {
   createTimer,
   defaultTimers,
+  displayName,
   elapsedOf,
   isIdle,
   loadMuted,
@@ -50,7 +51,7 @@ const phaseSound = (phase: Phase): Sound | null => {
 const useTimers = () => {
   const { t: tx } = useI18n();
   const [timers, setTimers] = useState<TimerItem[]>(
-    () => loadTimers() ?? defaultTimers(tx),
+    () => loadTimers() ?? defaultTimers(),
   );
   const [muted, setMuted] = useState(loadMuted);
   const [now, setNow] = useState(() => Date.now());
@@ -149,9 +150,9 @@ const useTimers = () => {
       elapsedOf(first, now),
     );
     const more = running.length > 1 ? ` (+${running.length - 1})` : '';
-    document.title = `${formatTime(progress.remaining)} ${first.emoji} ${
-      first.name
-    }${more}`;
+    document.title = `${formatTime(progress.remaining)} ${
+      first.emoji
+    } ${displayName(first, tx)}${more}`;
   }, [timers, now, tx]);
 
   const update = useCallback(
@@ -200,18 +201,18 @@ const useTimers = () => {
   );
 
   const add = useCallback(
-    (preset: Preset) =>
-      setTimers((list) => [
-        ...list,
-        createTimer(preset, tx(`preset.${preset.id}`)),
-      ]),
-    [tx],
+    (preset: Preset) => setTimers((list) => [...list, createTimer(preset)]),
+    [],
   );
 
   const edit = useCallback(
     (id: string, values: Pick<TimerItem, 'emoji' | 'name' | 'settings'>) =>
-      update(id, (t) => ({ ...t, ...values })),
-    [update],
+      update(id, (t) => ({
+        ...t,
+        ...values,
+        renamed: t.renamed || values.name !== displayName(t, tx),
+      })),
+    [update, tx],
   );
 
   const toggleMute = useCallback(() => {
