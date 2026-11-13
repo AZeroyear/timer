@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { displayName, displayPreset, isIdle, TimerItem } from 'features/timers';
 import TimerCard from 'components/organisms/TimerCard';
 import Icon from 'components/atoms/Icon';
@@ -6,6 +6,7 @@ import ImportBanner from 'components/molecules/ImportBanner';
 import PresetDialog from 'components/molecules/PresetDialog';
 import TimerEditDialog from 'components/molecules/TimerEditDialog';
 import ShareDialog from 'components/molecules/ShareDialog';
+import SettingsDialog from 'components/molecules/SettingsDialog';
 import Coffee from 'components/molecules/Coffee';
 import Join from 'components/molecules/Join';
 import { APP_NAME } from 'features/share';
@@ -18,7 +19,10 @@ import {
 import { LANGS } from 'i18n/messages';
 import AboutSection from 'components/organisms/AboutSection';
 import { Lang, useI18n } from 'i18n';
+import usePrefs from './usePrefs';
+import useBackground from './useBackground';
 import useTimers from './useTimers';
+import useWakeLock from './useWakeLock';
 
 const TimerList: FC = () => {
   const {
@@ -37,6 +41,9 @@ const TimerList: FC = () => {
     dismissIncoming,
   } = useTimers();
   const { t, lang, setLang } = useI18n();
+  const { prefs, update } = usePrefs();
+  useWakeLock(prefs.keepAwake && timers.some((x) => x.run.running));
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [adding, setAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [sharingId, setSharingId] = useState<string | null>(null);
@@ -51,6 +58,17 @@ const TimerList: FC = () => {
     view.find((timer) => timer.id === id);
   const editing = find(editingId);
   const sharing = find(sharingId);
+
+  const runningNames = view.filter((x) => x.run.running).map((x) => x.name);
+  const pauseAll = useCallback(
+    () => timers.forEach((x) => x.run.running && pause(x.id)),
+    [timers, pause],
+  );
+  useBackground(
+    prefs.background,
+    runningNames.length > 0 ? runningNames.join(' / ') : null,
+    pauseAll,
+  );
 
   let offer: { emoji: string; name: string; settings: Settings } | null = null;
   if (incoming?.kind === 'link') offer = incoming.timer;
@@ -87,6 +105,14 @@ const TimerList: FC = () => {
             </option>
           ))}
         </select>
+        <button
+          type="button"
+          className="icon-button"
+          aria-label={t('header.settings')}
+          onClick={() => setSettingsOpen(true)}
+        >
+          <Icon name="settings" size={24} />
+        </button>
         <button
           type="button"
           className="icon-button"
@@ -150,6 +176,13 @@ const TimerList: FC = () => {
             setEditingId(null);
           }}
           onClose={() => setEditingId(null)}
+        />
+      )}
+      {settingsOpen && (
+        <SettingsDialog
+          prefs={prefs}
+          onChange={update}
+          onClose={() => setSettingsOpen(false)}
         />
       )}
       {sharing && (

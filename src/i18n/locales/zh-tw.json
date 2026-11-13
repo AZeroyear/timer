@@ -98,5 +98,16 @@
   "preset.about.pomodoro": "番茄工作法交替進行 25 分鐘的專注工作與 5 分鐘的休息。本計時器預設為工作 25 分鐘 / 休息 5 分鐘 × 4 輪，可隨時修改。",
   "preset.about.tabata": "塔巴塔是一種高強度間歇訓練形式：全力運動 20 秒、休息 10 秒，重複 8 次（共 4 分鐘）。本計時器還包含 10 秒的準備倒數。",
   "preset.about.hiit": "一個簡單的 HIIT 方案：高強度運動 40 秒、休息 20 秒，每組 10 輪，共 2 組，組間休息 1 分鐘。可依自己的程度調整時間。",
-  "preset.about.emom": "EMOM 意指「每分鐘的開始」：運動 45 秒、休息 15 秒，並在每一分鐘開始下一輪。本計時器共執行 10 輪。"
+  "preset.about.emom": "EMOM 意指「每分鐘的開始」：運動 45 秒、休息 15 秒，並在每一分鐘開始下一輪。本計時器共執行 10 輪。",
+  "header.settings": "設定",
+  "settings.title": "設定",
+  "settings.sound": "提示音",
+  "settings.level.1": "輕柔",
+  "settings.level.2": "清晰",
+  "settings.level.3": "響亮",
+  "settings.soundHint": "點一下即可試聽。「響亮」在支援的手機上還會震動。",
+  "settings.keepAwake": "計時期間保持螢幕恆亮",
+  "settings.keepAwakeHint": "避免螢幕鎖定而錯過提示音，但會增加耗電。",
+  "settings.background": "鎖定螢幕時也播放提示音",
+  "settings.backgroundHint": "持續播放靜音音訊，讓鎖定螢幕或在背景時提示音仍能響起。鎖定畫面會出現「正在播放」控制項，並增加耗電。"
 }

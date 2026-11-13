@@ -100,5 +100,16 @@
   "preset.about.pomodoro": "La tecnica del Pomodoro alterna 25 minuti di lavoro concentrato a pause di 5 minuti. Questo timer parte con 25 min di lavoro / 5 min di riposo × 4 round e puoi cambiarlo quando vuoi.",
   "preset.about.tabata": "Il Tabata è un formato a intervalli ad alta intensità: 20 secondi di sforzo massimo e 10 di riposo, ripetuti 8 volte (4 minuti). Questo timer aggiunge un conto alla rovescia di 10 secondi per prepararti.",
   "preset.about.hiit": "Un semplice piano HIIT: 40 secondi di lavoro e 20 di riposo, 10 round per serie e 2 serie con 1 minuto di pausa in mezzo. Regola i tempi in base al tuo livello.",
-  "preset.about.emom": "EMOM significa «every minute on the minute»: lavora 45 secondi, riposa 15 e inizia il round successivo allo scoccare del minuto. Questo timer esegue 10 round."
+  "preset.about.emom": "EMOM significa «every minute on the minute»: lavora 45 secondi, riposa 15 e inizia il round successivo allo scoccare del minuto. Questo timer esegue 10 round.",
+  "header.settings": "Impostazioni",
+  "settings.title": "Impostazioni",
+  "settings.sound": "Suono di avviso",
+  "settings.level.1": "Morbido",
+  "settings.level.2": "Chiaro",
+  "settings.level.3": "Forte",
+  "settings.soundHint": "Tocca un livello per ascoltarlo. «Forte» fa vibrare anche i telefoni compatibili.",
+  "settings.keepAwake": "Tieni lo schermo acceso durante il timer",
+  "settings.keepAwakeHint": "Impedisce il blocco dello schermo per non perdere il suono. Consuma più batteria.",
+  "settings.background": "Mantieni il suono a schermo bloccato",
+  "settings.backgroundHint": "Riproduce audio silenzioso così i suoni funzionano a schermo bloccato o in background. Sulla schermata di blocco compare un controllo «in riproduzione». Consuma più batteria."
 }

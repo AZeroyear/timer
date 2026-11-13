@@ -100,5 +100,16 @@
   "preset.about.pomodoro": "La technique Pomodoro alterne 25 minutes de travail concentré et 5 minutes de pause. Ce minuteur démarre sur 25 min de travail / 5 min de pause × 4 tours, et vous pouvez le modifier à tout moment.",
   "preset.about.tabata": "Le Tabata est un format d’intervalles à haute intensité : 20 secondes d’effort maximal et 10 secondes de repos, répétées 8 fois (4 minutes). Ce minuteur ajoute un compte à rebours de préparation de 10 secondes.",
   "preset.about.hiit": "Un plan HIIT simple : 40 secondes d’effort et 20 secondes de repos, 10 tours par série, 2 séries avec 1 minute de pause entre elles. Adaptez les durées à votre niveau.",
-  "preset.about.emom": "EMOM signifie « every minute on the minute » : travaillez 45 secondes, reposez-vous 15 secondes et commencez le tour suivant à la minute. Ce minuteur enchaîne 10 tours."
+  "preset.about.emom": "EMOM signifie « every minute on the minute » : travaillez 45 secondes, reposez-vous 15 secondes et commencez le tour suivant à la minute. Ce minuteur enchaîne 10 tours.",
+  "header.settings": "Réglages",
+  "settings.title": "Réglages",
+  "settings.sound": "Son d'alerte",
+  "settings.level.1": "Doux",
+  "settings.level.2": "Net",
+  "settings.level.3": "Fort",
+  "settings.soundHint": "Touchez un niveau pour l'écouter. « Fort » fait aussi vibrer les téléphones compatibles.",
+  "settings.keepAwake": "Garder l'écran allumé pendant le minuteur",
+  "settings.keepAwakeHint": "Empêche le verrouillage de l'écran pour ne pas manquer le son. Consomme plus de batterie.",
+  "settings.background": "Garder le son écran verrouillé",
+  "settings.backgroundHint": "Lit un audio silencieux pour que les sons retentissent écran verrouillé ou en arrière-plan. Un contrôle « lecture en cours » apparaît sur l'écran de verrouillage. Consomme plus de batterie."
 }

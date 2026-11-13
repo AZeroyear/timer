@@ -8,6 +8,7 @@ import {
 } from 'features/tabata';
 import { TimerItem } from 'features/timers';
 import { useI18n } from 'i18n';
+import { MessageKey } from 'i18n/messages';
 import './TimerList.css';
 
 type Props = {
@@ -45,6 +46,15 @@ const TimerCard: FC<Props> = ({
   else if (!run.running && !finished) label = t('phase.paused');
 
   const percent = Math.min(100, (elapsed / total) * 100);
+  let mainLabelKey: MessageKey = 'card.start';
+  let mainIcon: 'play' | 'pause' | 'replay' = 'play';
+  if (finished) {
+    mainLabelKey = 'card.reset';
+    mainIcon = 'replay';
+  } else if (run.running) {
+    mainLabelKey = 'card.pause';
+    mainIcon = 'pause';
+  }
   const phaseClass = idle ? 'idle' : progress.phase;
 
   return (
@@ -91,7 +101,7 @@ const TimerCard: FC<Props> = ({
         </button>
         <button
           type="button"
-          className="icon-button"
+          className="icon-button icon-button-danger"
           aria-label={t('card.delete', { name })}
           disabled={run.running}
           onClick={() => onRemove(id)}
@@ -109,14 +119,17 @@ const TimerCard: FC<Props> = ({
         </div>
         <button
           type="button"
-          className="timer-card-main"
-          aria-label={
-            run.running ? t('card.pause', { name }) : t('card.start', { name })
-          }
-          disabled={finished}
-          onClick={() => (run.running ? onPause(id) : onStart(id))}
+          className={`timer-card-main${
+            finished ? ' timer-card-main-done' : ''
+          }`}
+          aria-label={t(mainLabelKey, { name })}
+          onClick={() => {
+            if (finished) onReset(id);
+            else if (run.running) onPause(id);
+            else onStart(id);
+          }}
         >
-          <Icon name={run.running ? 'pause' : 'play'} size={32} />
+          <Icon name={mainIcon} size={32} />
         </button>
       </div>
 

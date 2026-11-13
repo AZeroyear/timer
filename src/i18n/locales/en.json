@@ -100,5 +100,16 @@
   "preset.about.pomodoro": "The Pomodoro Technique alternates 25 minutes of focused work with 5-minute breaks. This timer starts at 25 min work / 5 min rest × 4 rounds, and you can change it any time.",
   "preset.about.tabata": "Tabata is a high-intensity interval format: 20 seconds of all-out effort and 10 seconds of rest, repeated 8 times (4 minutes). This timer adds a 10-second get-ready countdown.",
   "preset.about.hiit": "A simple HIIT plan: 40 seconds of hard work and 20 seconds of rest, 10 rounds per set, 2 sets with a 1-minute break in between. Adjust the times to your level.",
-  "preset.about.emom": "EMOM means “every minute on the minute”: work for 45 seconds, rest for 15, and start the next round on the minute. This timer runs 10 rounds."
+  "preset.about.emom": "EMOM means “every minute on the minute”: work for 45 seconds, rest for 15, and start the next round on the minute. This timer runs 10 rounds.",
+  "header.settings": "Settings",
+  "settings.title": "Settings",
+  "settings.sound": "Alert sound",
+  "settings.level.1": "Soft",
+  "settings.level.2": "Clear",
+  "settings.level.3": "Loud",
+  "settings.soundHint": "Tap a level to hear it. Loud also vibrates on phones that support it.",
+  "settings.keepAwake": "Keep screen on while a timer runs",
+  "settings.keepAwakeHint": "Stops the screen from locking so you don't miss the sound. Uses more battery.",
+  "settings.background": "Keep sound on when the screen locks",
+  "settings.backgroundHint": "Plays silent audio so beeps still sound with the screen locked or the app in the background. A “now playing” control appears on the lock screen. Uses more battery."
 }

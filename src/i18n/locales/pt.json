@@ -100,5 +100,16 @@
   "preset.about.pomodoro": "A técnica Pomodoro alterna 25 minutos de trabalho focado com pausas de 5 minutos. Este temporizador começa com 25 min de trabalho / 5 min de descanso × 4 rodadas, e você pode alterá-lo quando quiser.",
   "preset.about.tabata": "Tabata é um formato de intervalos de alta intensidade: 20 segundos de esforço máximo e 10 de descanso, repetidos 8 vezes (4 minutos). Este temporizador inclui uma contagem regressiva de 10 segundos para você se preparar.",
   "preset.about.hiit": "Um plano de HIIT simples: 40 segundos de esforço e 20 de descanso, 10 rodadas por série, com 2 séries e 1 minuto de pausa entre elas. Ajuste os tempos ao seu nível.",
-  "preset.about.emom": "EMOM significa “every minute on the minute” (a cada minuto): trabalhe 45 segundos, descanse 15 e comece a próxima rodada no início do minuto. Este temporizador faz 10 rodadas."
+  "preset.about.emom": "EMOM significa “every minute on the minute” (a cada minuto): trabalhe 45 segundos, descanse 15 e comece a próxima rodada no início do minuto. Este temporizador faz 10 rodadas.",
+  "header.settings": "Configurações",
+  "settings.title": "Configurações",
+  "settings.sound": "Som de aviso",
+  "settings.level.1": "Suave",
+  "settings.level.2": "Nítido",
+  "settings.level.3": "Alto",
+  "settings.soundHint": "Toque num nível para ouvi-lo. «Alto» também vibra em celulares compatíveis.",
+  "settings.keepAwake": "Manter a tela ligada durante o timer",
+  "settings.keepAwakeHint": "Evita que a tela bloqueie para você não perder o som. Gasta mais bateria.",
+  "settings.background": "Manter o som com a tela bloqueada",
+  "settings.backgroundHint": "Reproduz áudio silencioso para que os avisos soem com a tela bloqueada ou em segundo plano. Um controle de «reproduzindo» aparece na tela de bloqueio. Gasta mais bateria."
 }

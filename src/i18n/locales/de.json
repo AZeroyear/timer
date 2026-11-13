@@ -100,5 +100,16 @@
   "preset.about.pomodoro": "Die Pomodoro-Technik wechselt 25 Minuten konzentrierte Arbeit mit 5 Minuten Pause ab. Dieser Timer startet mit 25 Min. Arbeit / 5 Min. Pause × 4 Runden und lässt sich jederzeit ändern.",
   "preset.about.tabata": "Tabata ist ein hochintensives Intervallformat: 20 Sekunden volle Anstrengung und 10 Sekunden Pause, 8-mal wiederholt (4 Minuten). Dieser Timer enthält einen 10-Sekunden-Countdown zur Vorbereitung.",
   "preset.about.hiit": "Ein einfacher HIIT-Plan: 40 Sekunden Belastung und 20 Sekunden Pause, 10 Runden pro Satz, 2 Sätze mit 1 Minute Pause dazwischen. Passe die Zeiten an dein Niveau an.",
-  "preset.about.emom": "EMOM steht für „every minute on the minute“: 45 Sekunden arbeiten, 15 Sekunden pausieren und die nächste Runde zur vollen Minute starten. Dieser Timer läuft über 10 Runden."
+  "preset.about.emom": "EMOM steht für „every minute on the minute“: 45 Sekunden arbeiten, 15 Sekunden pausieren und die nächste Runde zur vollen Minute starten. Dieser Timer läuft über 10 Runden.",
+  "header.settings": "Einstellungen",
+  "settings.title": "Einstellungen",
+  "settings.sound": "Signalton",
+  "settings.level.1": "Leise",
+  "settings.level.2": "Deutlich",
+  "settings.level.3": "Laut",
+  "settings.soundHint": "Tippe auf eine Stufe, um sie zu hören. „Laut“ vibriert auf unterstützten Handys zusätzlich.",
+  "settings.keepAwake": "Bildschirm während des Timers anlassen",
+  "settings.keepAwakeHint": "Verhindert die Bildschirmsperre, damit du den Ton nicht verpasst. Verbraucht mehr Akku.",
+  "settings.background": "Ton bei gesperrtem Bildschirm beibehalten",
+  "settings.backgroundHint": "Spielt stille Audiodaten ab, damit die Töne auch bei gesperrtem Bildschirm oder im Hintergrund erklingen. Auf dem Sperrbildschirm erscheint eine Wiedergabe-Anzeige. Verbraucht mehr Akku."
 }

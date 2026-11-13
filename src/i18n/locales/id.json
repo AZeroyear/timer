@@ -98,5 +98,16 @@
   "preset.about.pomodoro": "Teknik Pomodoro menyelingi 25 menit kerja fokus dengan istirahat 5 menit. Timer ini dimulai dengan kerja 25 mnt / istirahat 5 mnt × 4 ronde, dan bisa kamu ubah kapan saja.",
   "preset.about.tabata": "Tabata adalah format interval intensitas tinggi: 20 detik usaha maksimal dan 10 detik istirahat, diulang 8 kali (4 menit). Timer ini menambahkan hitung mundur persiapan 10 detik.",
   "preset.about.hiit": "Contoh rencana HIIT sederhana: 40 detik latihan dan 20 detik istirahat, 10 ronde per set, 2 set dengan jeda 1 menit di antaranya. Sesuaikan waktunya dengan levelmu.",
-  "preset.about.emom": "EMOM berarti “every minute on the minute” (tiap menit): latihan 45 detik, istirahat 15 detik, lalu mulai ronde berikutnya tepat di menit baru. Timer ini menjalankan 10 ronde."
+  "preset.about.emom": "EMOM berarti “every minute on the minute” (tiap menit): latihan 45 detik, istirahat 15 detik, lalu mulai ronde berikutnya tepat di menit baru. Timer ini menjalankan 10 ronde.",
+  "header.settings": "Pengaturan",
+  "settings.title": "Pengaturan",
+  "settings.sound": "Suara peringatan",
+  "settings.level.1": "Lembut",
+  "settings.level.2": "Jelas",
+  "settings.level.3": "Keras",
+  "settings.soundHint": "Ketuk tingkat untuk mendengarnya. «Keras» juga bergetar di ponsel yang mendukung.",
+  "settings.keepAwake": "Biarkan layar menyala saat timer berjalan",
+  "settings.keepAwakeHint": "Mencegah layar terkunci agar suara tidak terlewat. Lebih boros baterai.",
+  "settings.background": "Tetap bunyi saat layar terkunci",
+  "settings.backgroundHint": "Memutar audio senyap agar bunyi tetap terdengar saat layar terkunci atau aplikasi di latar belakang. Kontrol «sedang diputar» muncul di layar kunci. Lebih boros baterai."
 }

@@ -26,7 +26,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - 実行状態 `RunState` は `{ running, startedAt, accumulated }`。経過時間は `accumulated + (now - startedAt)` で導出するため、`setInterval` のずれは蓄積しない。
 - `src/features/timers.ts` — `TimerItem`（id / emoji / name / presetName / settings / run）、localStorage の読み書きと検証（キー `loopy-timer:v1`、`loopy-timer:muted`）。壊れた保存データは補正して読む。
 - `src/features/presets.ts` — 組み込みプリセット（設定値のみ。表示名は i18n の `preset.<id>`）。`EMOJIS` はアイコン候補。
-- `src/features/sound.ts` — Web Audio API でビープ音を生成。`initAudio()` はユーザー操作内で呼ぶ必要がある。
+- `src/features/sound.ts` — Web Audio API でビープ音を生成。`initAudio()` はユーザー操作内で呼ぶ必要がある。通知音は `setSoundLevel` で 3 段階（1 控えめ / 2 はっきり / 3 最大＝矩形波・3 回鳴らす・振動）に切り替わる。
+- `src/features/schedule.ts` — `upcomingSounds(settings, elapsed, window)`（純粋関数）が、これから鳴らす音（フェーズ切替・3-2-1 カウントダウン・完了）を返す。`useTimers` は毎 tick で先の 1.5 秒分を `scheduleSound`（AudioContext の時刻軸に予約・取り消し可）で予約するので、バックグラウンドで tick が遅れても音のタイミングはずれない。一時停止・リセット・ミュートで予約を取り消す。
+- `src/features/background.ts` — 「画面ロック中も音を鳴らす」オプション。無音 WAV の `<audio loop>` と Media Session（ロック画面の一時停止）でページが凍結されにくくする。`startKeepAlive()` はユーザー操作内（開始ボタン・設定スイッチ）で呼ぶ。実機（iOS / Android）でのみ効果を確認できる。
+- `src/features/prefs.ts` — 設定（通知音レベル・タイマー中の画面点灯・バックグラウンド再生）を localStorage（`loopy-timer:prefs`）に保存。UI は `SettingsDialog`（ヘッダーの歯車）、画面点灯は `containers/useWakeLock.ts`（Wake Lock API。非対応端末ではスイッチ自体を隠す）。
 - `src/features/timerLink.ts` — タイマーを URL で共有する仕組み（`/<lang>/?n=名前&e=絵文字&c=準備,ワーク,休憩,ラウンド,セット,セット間休憩`）。`decodeTimerLink` は値を検証・clamp する。初回訪問者は共有されたタイマーでそのまま始まり、既存ユーザーには確認バナー（`ImportBanner`）を出してから追加する。処理後は `clearTimerLinkFromUrl` でクエリを消す。
 - `src/features/stats.ts` — 完了した回数と「完了した日」を localStorage（`loopy-timer:stats`）に保存し、連続日数を計算する。共有文・共有画像に「通算 N 回目 · N 日連続」を出すために使う。
 - `src/features/landing.json` — プリセット別ページ（`/ja/tabata-timer/` など）の一覧（id / slug / emoji）。`presets.ts` の `landingFromPath` と `scripts/prerender.js` の両方が読む。

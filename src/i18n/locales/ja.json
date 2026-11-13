@@ -98,5 +98,16 @@
   "preset.about.pomodoro": "ポモドーロ・テクニックは、25分の集中作業と5分の休憩を繰り返す時間管理法です。このタイマーは「ワーク25分 / 休憩5分 × 4ラウンド」で始まり、いつでも変更できます。",
   "preset.about.tabata": "タバタは高強度インターバルの形式で、20秒の全力運動と10秒の休憩を8回（4分間）繰り返します。このタイマーには10秒の準備カウントダウンが付いています。",
   "preset.about.hiit": "シンプルなHIITの例です。40秒の運動と20秒の休憩を10ラウンドで1セット、間に1分の休憩をはさんで2セット行います。時間は自分のレベルに合わせて調整できます。",
-  "preset.about.emom": "EMOMは「Every Minute On the Minute（毎分開始）」の略です。45秒運動して15秒休み、1分ごとに次のラウンドを始めます。このタイマーは10ラウンド動きます。"
+  "preset.about.emom": "EMOMは「Every Minute On the Minute（毎分開始）」の略です。45秒運動して15秒休み、1分ごとに次のラウンドを始めます。このタイマーは10ラウンド動きます。",
+  "header.settings": "設定",
+  "settings.title": "設定",
+  "settings.sound": "通知音",
+  "settings.level.1": "控えめ",
+  "settings.level.2": "はっきり",
+  "settings.level.3": "最大",
+  "settings.soundHint": "タップすると音を試せます。「最大」は対応するスマホで振動も加わります。",
+  "settings.keepAwake": "タイマー中は画面を点灯したままにする",
+  "settings.keepAwakeHint": "画面ロックで音を聞き逃さないようにします。バッテリーの消費が増えます。",
+  "settings.background": "画面ロック中も音を鳴らす",
+  "settings.backgroundHint": "無音の音声を流し続け、画面ロックやバックグラウンドでも音が鳴るようにします。ロック画面に「再生中」の表示が出ます。バッテリーの消費が増えます。"
 }

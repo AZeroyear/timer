@@ -4,22 +4,16 @@ import {
   computeProgress,
   formatTime,
   initialRun,
-  Phase,
   totalDuration,
 } from 'features/tabata';
-import {
-  initAudio,
-  soundCountdown,
-  soundDone,
-  soundRest,
-  soundWork,
-} from 'features/sound';
+import { initAudio, scheduleSound } from 'features/sound';
+import { SOUND_PRIORITY, SoundName, upcomingSounds } from 'features/schedule';
+import { startKeepAlive } from 'features/background';
 import {
   createTimer,
   createTimerFromShared,
   displayName,
   elapsedOf,
-  isIdle,
   loadMuted,
   loadTimers,
   saveMuted,
@@ -37,22 +31,11 @@ import { useI18n } from 'i18n';
 
 const TICK_MS = 100;
 
-type Tracker = { index: number; countdown: number };
-type Sound = 'countdown' | 'rest' | 'work' | 'done';
-const SOUND_PRIORITY: Sound[] = ['countdown', 'rest', 'work', 'done'];
-const PLAY: Record<Sound, () => void> = {
-  countdown: soundCountdown,
-  rest: soundRest,
-  work: soundWork,
-  done: soundDone,
-};
+/** How far ahead sounds are queued on the audio clock. */
+const LOOKAHEAD_MS = 1500;
 
-const phaseSound = (phase: Phase): Sound | null => {
-  if (phase === 'work') return 'work';
-  if (phase === 'rest' || phase === 'setRest') return 'rest';
-
-  return null;
-};
+type Pending = { key: string; atAbs: number; cancel: () => void };
+type Wanted = { sound: SoundName; atMs: number; marks: Pending[] };
 
 /** A timer offered to the visitor (shared link, or a preset landing page). */
 export type Incoming =
@@ -100,11 +83,9 @@ const useTimers = () => {
   const [incoming, setIncoming] = useState<Incoming | null>(initial.incoming);
   const [muted, setMuted] = useState(loadMuted);
   const [now, setNow] = useState(() => Date.now());
-  // Per-timer sound bookkeeping. A missing entry means "just restored": stay
-  // silent for the phase that is already in progress.
-  const trackers = useRef(new Map<string, Tracker>());
-  const latest = useRef(timers);
-  latest.current = timers;
+  // Sounds already queued on the audio clock, per timer (so a pause can
+  // cancel them and the same event is never queued twice).
+  const pending = useRef(new Map<string, Pending[]>());
 
   useEffect(() => clearTimerLinkFromUrl(), []);
   useEffect(() => saveTimers(timers), [timers]);
@@ -120,50 +101,67 @@ const useTimers = () => {
     return () => window.clearInterval(id);
   }, [anyRunning]);
 
-  // Phase sounds, countdown beeps and completion. At most one sound per tick,
-  // so several timers never pile their beeps on top of each other.
+  // Phase sounds, countdown beeps and completion are queued slightly ahead on
+  // the audio clock. At most one sound per moment, so several timers never
+  // pile their beeps on top of each other.
   useEffect(() => {
-    let loudest = -1;
-    const finishedIds: string[] = [];
-    const wanted = (sound: Sound) => {
-      loudest = Math.max(loudest, SOUND_PRIORITY.indexOf(sound));
-    };
-
-    timers.forEach((t) => {
-      if (!t.run.running) {
-        trackers.current.delete(t.id);
-
-        return;
-      }
-      const segments = buildSegments(t.settings);
-      const progress = computeProgress(segments, elapsedOf(t, now));
-      const known = trackers.current.get(t.id);
-      const track = known ?? { index: progress.index, countdown: 0 };
-      trackers.current.set(t.id, track);
-
-      if (progress.phase === 'done') {
-        finishedIds.push(t.id);
-        trackers.current.delete(t.id);
-        wanted('done');
-
-        return;
-      }
-      if (known && track.index !== progress.index) {
-        const sound = phaseSound(progress.phase);
-        if (sound) wanted(sound);
-      }
-      track.index = progress.index;
-
-      const sec = Math.ceil(progress.remaining / 1000);
-      if (progress.phase !== 'work' && sec >= 1 && sec <= 3) {
-        if (track.countdown !== sec) wanted('countdown');
-        track.countdown = sec;
-      } else {
-        track.countdown = 0;
-      }
+    const queued = pending.current;
+    const live = new Set(timers.filter((t) => t.run.running).map((t) => t.id));
+    Array.from(queued.keys()).forEach((id) => {
+      if (live.has(id) && !muted) return;
+      queued.get(id)?.forEach((p) => p.cancel());
+      queued.delete(id);
     });
 
-    if (loudest >= 0 && !muted) PLAY[SOUND_PRIORITY[loudest]]();
+    const finishedIds: string[] = [];
+    const wanted = new Map<number, Wanted>();
+
+    timers.forEach((t) => {
+      if (!t.run.running) return;
+      const elapsed = elapsedOf(t, now);
+      if (
+        computeProgress(buildSegments(t.settings), elapsed).phase === 'done'
+      ) {
+        finishedIds.push(t.id);
+        // The completion sound is playing right now: do not cancel it.
+        queued.delete(t.id);
+
+        return;
+      }
+      if (muted) return;
+
+      const list = (queued.get(t.id) ?? []).filter((p) => p.atAbs > now - 1000);
+      queued.set(t.id, list);
+      upcomingSounds(t.settings, elapsed, LOOKAHEAD_MS).forEach((e) => {
+        if (list.some((p) => p.key === e.key)) return;
+        const mark: Pending = {
+          key: e.key,
+          atAbs: now + e.at,
+          cancel: () => undefined,
+        };
+        list.push(mark);
+        const slot = Math.round((now + e.at) / 100);
+        const current = wanted.get(slot);
+        const stronger =
+          !current ||
+          SOUND_PRIORITY.indexOf(e.sound) >
+            SOUND_PRIORITY.indexOf(current.sound);
+        wanted.set(slot, {
+          sound: stronger ? e.sound : current.sound,
+          atMs: stronger ? e.at : current.atMs,
+          marks: [...(current?.marks ?? []), mark],
+        });
+      });
+    });
+
+    wanted.forEach(({ sound, atMs, marks }) => {
+      const cancel = scheduleSound(sound, atMs);
+      marks.forEach((mark) => {
+        // eslint-disable-next-line no-param-reassign
+        mark.cancel = cancel;
+      });
+    });
+
     if (finishedIds.length > 0) {
       finishedIds.forEach(() => recordSession());
       setTimers((list) =>
@@ -214,11 +212,7 @@ const useTimers = () => {
   const start = useCallback(
     (id: string) => {
       initAudio(); // needs a user gesture
-      // A fresh start announces its first phase; a resume stays quiet.
-      const target = latest.current.find((t) => t.id === id);
-      if (target && isIdle(target)) {
-        trackers.current.set(id, { index: -1, countdown: 0 });
-      }
+      startKeepAlive();
       update(id, (t) => ({
         ...t,
         run: { ...t.run, running: true, startedAt: Date.now() },
